@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <title>Электротехника - Глоссарий</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        html {
+            -webkit-text-size-adjust: 100%;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 20px 0;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: clamp(24px, 5vw, 32px);
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+            cursor: pointer;
+            padding: 0 40px 0 0;
+        }
+        
+        .logo span {
+            color: #ffdd59;
+        }
+        
+        .subject {
+            font-size: clamp(14px, 3vw, 18px);
+            margin-bottom: 15px;
+            opacity: 0.9;
+            text-align: center;
+            padding: 0 40px 0 0;
+        }
+        
+        nav {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .nav-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 90px;
+            max-width: 120px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .nav-btn.active {
+            background-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1001;
+        }
+        
+        .section-content {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .glossary-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+            align-items: center;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 2px solid #e1e5eb;
+            border-radius: 30px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            -webkit-appearance: none;
+            background: white;
+        }
+        
+        .search-box input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+            pointer-events: none;
+        }
+        
+        .filter-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .alphabet-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            justify-content: center;
+        }
+        
+        .letter-btn {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #e9ecef;
+            border: none;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+        
+        .letter-btn:hover, .letter-btn.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .show-all-btn {
+            padding: 8px 15px;
+            background-color: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+        
+        .show-all-btn:hover {
+            background-color: #3498db;
+        }
+        
+        .glossary-list {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .glossary-item {
+            border-bottom: 1px solid #f1f1f1;
+            overflow: hidden;
+        }
+        
+        .glossary-item:last-child {
+            border-bottom: none;
+        }
+        
+        .glossary-term {
+            padding: 16px 20px;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        
+        .glossary-term:hover {
+            background-color: #e9ecef;
+        }
+        
+        .glossary-term h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .glossary-toggle {
+            font-size: 16px;
+            color: #7f8c8d;
+            transition: transform 0.3s ease;
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .glossary-definition {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            background-color: white;
+        }
+        
+        .glossary-definition-content {
+            padding: 0 20px;
+        }
+        
+        .glossary-item.active .glossary-definition {
+            max-height: 1000px;
+        }
+        
+        .glossary-item.active .glossary-toggle {
+            transform: rotate(180deg);
+        }
+        
+        .glossary-definition p {
+            padding: 20px 0;
+            margin: 0;
+            color: #555;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+            font-style: italic;
+            font-size: 16px;
+        }
+        
+        .glossary-stat {
+            margin-top: 20px;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 14px;
+            padding: 10px;
+        }
+        
+        .search-highlight {
+            background-color: #ffdd59;
+            padding: 0 2px;
+            border-radius: 3px;
+        }
+        
+        .back-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 24px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            max-width: 200px;
+        }
+        
+        .back-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            margin-top: 40px;
+            border-top: 1px solid #e1e5eb;
+            background: white;
+        }
+        
+        /* Мобильные стили */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 5px;
+                margin-top: 15px;
+                background: rgba(0, 0, 0, 0.1);
+                padding: 10px;
+                border-radius: 10px;
+            }
+            
+            nav.active {
+                display: flex;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                max-width: none;
+                min-width: auto;
+                margin-bottom: 5px;
+                padding: 12px;
+                border-radius: 8px;
+                font-size: 15px;
+            }
+            
+            .header-content {
+                padding-bottom: 10px;
+            }
+            
+            .glossary-controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            
+            .search-box {
+                min-width: 100%;
+            }
+            
+            .filter-controls {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+            
+            .alphabet-filter {
+                justify-content: center;
+            }
+            
+            .letter-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 13px;
+            }
+            
+            .show-all-btn {
+                align-self: center;
+                margin-top: 5px;
+                padding: 10px 20px;
+            }
+            
+            .container {
+                padding: 15px;
+                width: 95%;
+            }
+            
+            .glossary-term {
+                padding: 14px 15px;
+            }
+            
+            .glossary-term h3 {
+                font-size: 16px;
+            }
+            
+            .glossary-definition-content {
+                padding: 0 15px;
+            }
+            
+            .glossary-definition p {
+                padding: 15px 0;
+                font-size: 14px;
+            }
+            
+            .back-btn {
+                width: 100%;
+                max-width: none;
+                padding: 15px;
+                margin: 15px auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+                width: 100%;
+            }
+            
+            header {
+                padding: 15px 0;
+                margin-bottom: 20px;
+            }
+            
+            .logo {
+                font-size: 22px;
+                margin-bottom: 10px;
+            }
+            
+            .subject {
+                font-size: 13px;
+                margin-bottom: 10px;
+            }
+            
+            .search-box input {
+                padding: 10px 12px 10px 40px;
+                font-size: 16px;
+            }
+            
+            .search-box i {
+                left: 12px;
+            }
+            
+            .glossary-term {
+                padding: 12px 10px;
+            }
+            
+            .glossary-term h3 {
+                font-size: 15px;
+            }
+            
+            .glossary-definition p {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+            
+            .alphabet-filter {
+                gap: 3px;
+            }
+            
+            .letter-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+        }
+        
+        /* Улучшения для касаний */
+        @media (hover: none) and (pointer: coarse) {
+            .nav-btn:hover, .letter-btn:hover, .show-all-btn:hover, .back-btn:hover {
+                transform: none;
+            }
+            
+            .glossary-term {
+                min-height: 50px;
+                display: flex;
+                align-items: center;
+            }
+        }
+        
+        /* Предотвращение выделения */
+        .glossary-term, .letter-btn, .show-all-btn, .nav-btn, .mobile-menu-btn {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+        
+        /* Улучшение производительности на мобильных */
+        .glossary-definition {
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню">☰</button>
+            <div class="logo" id="mainLogo">Электро<span>Техника</span></div>
+            <div class="subject">Электронный учебно-методический комплекс</div>
+            <nav id="mainNav">
+                <a href="index.html" class="nav-btn">Главная</a>
+                <a href="prosl-razdely.html" class="nav-btn">Разделы</a>
+                <a href="#" class="nav-btn">Тесты</a>
+                <a href="#" class="nav-btn">Приложения</a>
+                <a href="#" class="nav-btn">Видео</a>
+                <a href="glossary.html" class="nav-btn active">Глоссарий</a>
+                <a href="#" class="nav-btn">Литература</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section id="glossary">
+            <div class="section-content">
+                <h1 class="section-title">Глоссарий терминов по электротехнике</h1>
+                <p>Поиск и изучение терминов и определений в области электротехники.</p>
+                
+                <div class="glossary-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="glossarySearch" placeholder="Поиск терминов..." aria-label="Поиск терминов">
+                    </div>
+                </div>
+                
+                <div class="filter-controls">
+                    <div class="alphabet-filter" id="alphabetFilter" role="toolbar" aria-label="Фильтр по алфавиту">
+                        <!-- Буквы алфавита будут добавлены через JavaScript -->
+                    </div>
+                    <button class="show-all-btn" id="showAllBtn">Показать все</button>
+                </div>
+                
+                <div class="glossary-list" id="glossaryList" role="list">
+                    <!-- Термины будут добавлены через JavaScript -->
+                </div>
+                
+                <div class="glossary-stat" id="glossaryStat">
+                    Всего терминов: <span id="termsCount">0</span> | Показано: <span id="shownCount">0</span>
+                </div>
+                
+                <a href="index.html" class="back-btn" id="backToMainBtn">
+                    <i class="fas fa-arrow-left"></i> Назад на главную
+                </a>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 Электронный учебно-методический комплекс по электротехнике</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Данные глоссария
+        const glossaryTerms = [
+            {
+                term: "Асинхронный электродвигатель",
+                definition: "Электрическая асинхронная машина, преобразующая электрическую энергию в механическую. Существует два основных вида асинхронных электродвигателей: с фазным ротором и с короткозамкнутым ротором."
+            },
+            {
+                term: "Асинхронный двигатель с короткозамкнутым ротором",
+                definition: "Электродвигатель с первичной обмоткой, располагаемой на статоре – неподвижной части двигателя и присоединяемой к источнику питания и вторичной обмотке – на вращающейся части двигателя – роторе, выполненной в виде «беличьего колеса»."
+            },
+            {
+                term: "Асинхронный двигатель с фазным ротором",
+                definition: "Асинхронный двигатель, имеющий три фазные обмотки, геометрические оси которых сдвинуты относительно друг друга в пространстве на 120°."
+            },
+            {
+                term: "Виток обмотки",
+                definition: "Проводник (обычно, обмоточный провод), охватывающий один раз часть магнитопровода системы электротехнического изделия – трансформатора, электродвигателя, генератора."
+            },
+            {
+                term: "Вольт-амперная характеристика (ВАХ)",
+                definition: "Зависимость напряжения на зажимах элемента электрической цепи от тока в нем (или наоборот). Обычно, бывает выражена в виде графика или таблицы."
+            },
+            {
+                term: "Вторичная обмотка трансформаторов напряжения",
+                definition: "Обмотка, питающая цепи напряжения измерительных приборов, устройств защиты и управления."
+            },
+            {
+                term: "Генератор",
+                definition: "Электрическое устройство, машина, преобразующая механическую энергию в электрическую."
+            },
+            {
+                term: "Двигатель электрический",
+                definition: "Электрическая машина, предназначенная для преобразования электрической энергии в механическую."
+            },
+            {
+                term: "Измерительный трансформатор",
+                definition: "Трансформатор, служащий для передачи информационного сигнала измерительным приборам, приборам учёта, применяются для расширения их пределов измерения."
+            },
+            {
+                term: "Коэффициент трансформации",
+                definition: "Отношение электродвижущих сил (ЭДС) в трансформаторе, наводимых основным магнитным потоком в первичной и вторичной его обмотках."
+            },
+            {
+                term: "Нагрузка электрическая",
+                definition: "В электротехнике этот термин означает электрическую мощность, потребляемую электротехническим устройством или несколькими устройствами."
+            },
+            {
+                term: "Обмотка",
+                definition: "Часть электротехнического устройства, представляющая собой совокупность витков или катушек, которые служат для создания магнитного поля."
+            },
+            {
+                term: "Первичная обмотка трансформатора",
+                definition: "Обмотка трансформатора, на которую подается электрическая энергию переменного тока для её дальнейшего преобразования."
+            },
+            {
+                term: "Режим короткого замыкания электрооборудования",
+                definition: "Режим работы электрооборудования, отличающийся практически нулевым значением сопротивления его нагрузки и сопровождающийся резко увеличивающимся током."
+            },
+            {
+                term: "Режим холостого хода",
+                definition: "Общее понятие, в электротехнике такой термин означает состояние любого устройства, при котором сопротивление нагрузки бесконечно, ввиду ее отсутствия его подключения к данному устройству."
+            },
+            {
+                term: "Ротор",
+                definition: "Вращающаяся часть электрической машины."
+            },
+            {
+                term: "Трансформатор",
+                definition: "Статическое преобразующее электромагнитное устройство, состоящее из двух или более обмоток, индуктивно связанных между собой."
+            },
+            {
+                term: "Электрический ток",
+                definition: "Процесс направленного движения носителей электрических зарядов или процесс изменения электрического поля в течении времени, сопровождающийся магнитным полем."
+            },
+            {
+                term: "Электрическое напряжение",
+                definition: "Скалярная величина, измеряемая между 2-мя точками эл. цепи или эл. поля, выраженная отношением работы любого эл. поля при перемещении эл. заряда из одной точки в другую."
+            },
+            {
+                term: "Электрическое поле",
+                definition: "Пространство, вид материи, создаваемой заряженными частицами, которые обладают электрическим зарядом – протонов и электронов."
+            }
+        ];
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mainNav = document.getElementById('mainNav');
+            const mainLogo = document.getElementById('mainLogo');
+            
+            // Инициализация глоссария
+            initGlossary();
+            
+            // Обработчик для мобильного меню
+            mobileMenuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mainNav.classList.toggle('active');
+            });
+            
+            // Закрытие меню при клике вне его области
+            document.addEventListener('click', function() {
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                }
+            });
+            
+            // Предотвращение закрытия при клике на само меню
+            mainNav.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+            
+            // Логотип ведет на главную
+            mainLogo.addEventListener('click', function() {
+                window.location.href = 'index.html';
+            });
+            
+            // Улучшенная обработка касаний для мобильных
+            document.addEventListener('touchstart', function() {}, {passive: true});
+        }
+
+        // Инициализация глоссария
+        function initGlossary() {
+            const glossaryList = document.getElementById('glossaryList');
+            const alphabetFilter = document.getElementById('alphabetFilter');
+            const searchInput = document.getElementById('glossarySearch');
+            const termsCount = document.getElementById('termsCount');
+            const shownCount = document.getElementById('shownCount');
+            const showAllBtn = document.getElementById('showAllBtn');
+            
+            let currentFilter = null;
+            let currentSearch = '';
+            
+            // Создаем кнопки алфавита
+            const russianAlphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+            for (let letter of russianAlphabet) {
+                const button = document.createElement('button');
+                button.className = 'letter-btn';
+                button.textContent = letter;
+                button.dataset.letter = letter;
+                button.setAttribute('type', 'button');
+                button.setAttribute('aria-label', `Фильтр по букве ${letter}`);
+                button.addEventListener('click', function() {
+                    filterByLetter(this.dataset.letter, this);
+                });
+                alphabetFilter.appendChild(button);
+            }
+            
+            // Добавляем все термины в список
+            renderGlossaryTerms(glossaryTerms);
+            termsCount.textContent = glossaryTerms.length;
+            shownCount.textContent = glossaryTerms.length;
+            
+            // Поиск по глоссарию
+            searchInput.addEventListener('input', function() {
+                currentSearch = this.value.toLowerCase().trim();
+                applyFilters();
+            });
+            
+            // Кнопка "Показать все"
+            showAllBtn.addEventListener('click', function() {
+                searchInput.value = '';
+                currentSearch = '';
+                currentFilter = null;
+                resetLetterButtons();
+                applyFilters();
+                searchInput.focus();
+            });
+            
+            // Функция фильтрации по букве
+            function filterByLetter(letter, button) {
+                currentFilter = letter;
+                resetLetterButtons();
+                button.classList.add('active');
+                applyFilters();
+            }
+            
+            // Сброс активных кнопок букв
+            function resetLetterButtons() {
+                document.querySelectorAll('.letter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+            }
+            
+            // Применение всех фильтров
+            function applyFilters() {
+                let filteredTerms = glossaryTerms;
+                
+                // Фильтр по букве
+                if (currentFilter) {
+                    filteredTerms = filteredTerms.filter(term => 
+                        term.term.toUpperCase().startsWith(currentFilter)
+                    );
+                }
+                
+                // Фильтр по поиску
+                if (currentSearch) {
+                    filteredTerms = filteredTerms.filter(term => 
+                        term.term.toLowerCase().includes(currentSearch) || 
+                        term.definition.toLowerCase().includes(currentSearch)
+                    );
+                }
+                
+                renderGlossaryTerms(filteredTerms);
+                shownCount.textContent = filteredTerms.length;
+            }
+            
+            // Функция отрисовки терминов
+            function renderGlossaryTerms(terms) {
+                glossaryList.innerHTML = '';
+                
+                if (terms.length === 0) {
+                    glossaryList.innerHTML = '<div class="no-results">По вашему запросу ничего не найдено</div>';
+                    return;
+                }
+                
+                terms.forEach((item, index) => {
+                    const glossaryItem = document.createElement('div');
+                    glossaryItem.className = 'glossary-item';
+                    glossaryItem.setAttribute('role', 'listitem');
+                    
+                    const termElement = document.createElement('div');
+                    termElement.className = 'glossary-term';
+                    termElement.setAttribute('role', 'button');
+                    termElement.setAttribute('aria-expanded', 'false');
+                    termElement.setAttribute('tabindex', '0');
+                    
+                    // Подсветка результатов поиска
+                    let displayTerm = item.term;
+                    if (currentSearch) {
+                        const regex = new RegExp(currentSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                        displayTerm = item.term.replace(regex, match => 
+                            `<span class="search-highlight">${match}</span>`
+                        );
+                    }
+                    
+                    termElement.innerHTML = `
+                        <h3>${displayTerm}</h3>
+                        <span class="glossary-toggle">▼</span>
+                    `;
+                    
+                    const definitionElement = document.createElement('div');
+                    definitionElement.className = 'glossary-definition';
+                    definitionElement.setAttribute('role', 'region');
+                    
+                    const definitionContent = document.createElement('div');
+                    definitionContent.className = 'glossary-definition-content';
+                    
+                    // Подсветка результатов поиска в определении
+                    let displayDefinition = item.definition;
+                    if (currentSearch) {
+                        const regex = new RegExp(currentSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+                        displayDefinition = item.definition.replace(regex, match => 
+                            `<span class="search-highlight">${match}</span>`
+                        );
+                    }
+                    
+                    definitionContent.innerHTML = `<p>${displayDefinition}</p>`;
+                    definitionElement.appendChild(definitionContent);
+                    
+                    glossaryItem.appendChild(termElement);
+                    glossaryItem.appendChild(definitionElement);
+                    
+                    // Добавляем обработчики для сворачивания/разворачивания
+                    termElement.addEventListener('click', function() {
+                        const isActive = glossaryItem.classList.contains('active');
+                        glossaryItem.classList.toggle('active');
+                        termElement.setAttribute('aria-expanded', !isActive);
+                    });
+                    
+                    // Поддержка клавиатуры
+                    termElement.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            glossaryItem.classList.toggle('active');
+                            termElement.setAttribute('aria-expanded', glossaryItem.classList.contains('active'));
+                        }
+                    });
+                    
+                    glossaryList.appendChild(glossaryItem);
+                });
+            }
+        }
+    </script>
+</body>
+</html>

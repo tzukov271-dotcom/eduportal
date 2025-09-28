@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Электротехника - Электронный учебно-методический комплекс</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 25px 0;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .logo span {
+            color: #ffdd59;
+        }
+        
+        .subject {
+            font-size: 18px;
+            margin-top: -15px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        nav {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .nav-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 110px;
+            max-width: 140px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        .nav-btn.active {
+            background-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+        
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+            background-color: white;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%23f8f9fa" width="100" height="100"/><path fill="%23e9ecef" d="M0 0L100 100M100 0L0 100" stroke-width="0.5"/></svg>');
+        }
+        
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: #7f8c8d;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .content-blocks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .block {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-top: 5px solid #3498db;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .block:active {
+            transform: translateY(2px);
+        }
+        
+        .block h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .block p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .block-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: #3498db;
+        }
+        
+        .block-content {
+            height: auto;
+            opacity: 1;
+        }
+        
+        .block-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .section-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            font-size: 32px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        /* Стили для разделов (прослойка) */
+        .sections-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .section-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-top: 5px solid #3498db;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .section-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .section-card-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: #3498db;
+            text-align: center;
+        }
+        
+        .section-card-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #f1f1f1;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        
+        .section-card-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .content-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .content-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f1f1;
+            display: flex;
+            align-items: center;
+        }
+        
+        .content-list li:before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            display: inline-block;
+            width: 20px;
+            font-size: 20px;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 50px;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        @media (max-width: 900px) {
+            nav {
+                gap: 8px;
+            }
+            
+            .nav-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+                min-width: 90px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 5px;
+                margin-top: 15px;
+            }
+            
+            nav.active {
+                display: flex;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                max-width: none;
+                min-width: auto;
+                margin-bottom: 5px;
+                padding: 12px;
+                border-radius: 5px;
+            }
+            
+            .header-content {
+                padding-bottom: 15px;
+            }
+            
+            .content-blocks {
+                grid-template-columns: 1fr;
+            }
+            
+            .sections-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 26px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+            
+            .hero {
+                padding: 40px 0;
+            }
+            
+            .hero h1 {
+                font-size: 28px;
+            }
+            
+            .block {
+                padding: 20px;
+            }
+            
+            .section-card {
+                padding: 20px;
+            }
+            
+            .section-content {
+                padding: 20px;
+            }
+            
+            .logo {
+                font-size: 28px;
+                padding-right: 40px;
+            }
+            
+            .subject {
+                font-size: 16px;
+                padding-right: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+            <div class="logo" id="mainLogo">Электро<span>Техника</span></div>
+            <div class="subject">Электронный учебно-методический комплекс</div>
+            <nav id="mainNav">
+                <a href="index.html" class="nav-btn active">Главная</a>
+                <a href="prosl-razdely.html" class="nav-btn">Разделы</a>
+                <a href="#" class="nav-btn">Тесты</a>
+                <a href="#" class="nav-btn">Приложения</a>
+                <a href="#" class="nav-btn">Видео</a>
+                <a href="glossary.html" class="nav-btn">Глоссарий</a>
+                <a href="#" class="nav-btn">Литература</a>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Главная страница -->
+        <section id="main" class="section active">
+            <div class="hero">
+                <h1>Электротехника</h1>
+                <p>Комплексный электронный учебно-методический ресурс для изучения основы электротехники</p>
+            </div>
+            
+            <div class="content-blocks">
+                <div class="block" onclick="window.location.href='prosl-razdely.html'">
+                    <div class="block-icon">📚</div>
+                    <div class="block-content">
+                        <h3>Разделы</h3>
+                        <p>Основы электротехники, законы, формулы, принципы работы электронных компонентов.</p>
+                    </div>
+                    <div class="block-link"></div>
+                </div>
+                
+                <div class="block" data-section="tests">
+                    <div class="block-icon">📝</div>
+                    <div class="block-content">
+                        <h3>Тесты</h3>
+                        <p>Тесты для самопроверки, контрольные работы, подготовка к экзаменам.</p>
+                    </div>
+                    <div class="block-link"></div>
+                </div>
+                
+                <div class="block" data-section="apps">
+                    <div class="block-icon">📱</div>
+                    <div class="block-content">
+                        <h3>Приложения</h3>
+                        <p>Полезные приложения для расчетов, моделирования и изучения электротехники.</p>
+                    </div>
+                    <div class="block-link"></div>
+                </div>
+                
+                <div class="block" data-section="video">
+                    <div class="block-icon">🎬</div>
+                    <div class="block-content">
+                        <h3>Видео</h3>
+                        <p>Обучающие видео, лекции, демонстрации экспериментов и практические руководства.</p>
+                    </div>
+                    <div class="block-link"></div>
+                </div>
+                
+                <div class="block" onclick="window.location.href='glossary.html'">
+                    <div class="block-icon">📖</div>
+                    <div class="block-content">
+                        <h3>Глоссарий</h3>
+                        <p>Термины и определения по электротехнике с подробными объяснениями.</p>
+                    </div>
+                    <div class="block-link"></div>
+                </div>
+                
+                <div class="block" data-section="literature">
+                    <div class="block-icon">📕</div>
+                    <div class="block-content">
+                        <h3>Литература</h3>
+                        <p>Учебники, методические пособия, справочники и дополнительная литература.</p>
+                    </div>
+                    <div class="block-link"></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Разделы (прослойка) -->
+        <section id="sections" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Разделы электротехники</h2>
+                <p class="section-description">Выберите раздел для изучения материалов</p>
+                
+                <div class="sections-container">
+                    <div class="section-card" onclick="window.location.href='razdel1.html'">
+                        <div class="section-card-icon">⚡</div>
+                        <h3>Раздел 1: Машины переменного тока</h3>
+                        <p>Изучение асинхронных и синхронных машин, их устройства, принципов работы и характеристик. Конспект содержит 16 страниц с подробным описанием и схемами.</p>
+                        <div class="section-card-meta">
+                            <span><i class="fas fa-file-alt"></i> 16 страниц</span>
+                            <span><i class="fas fa-clock"></i> 2 часа</span>
+                        </div>
+                        <div class="section-card-link"></div>
+                    </div>
+                    
+                    <div class="section-card" onclick="window.location.href='razdel2.html'">
+                        <div class="section-card-icon">🔌</div>
+                        <h3>Раздел 2: Трансформаторы</h3>
+                        <p>Устройство и принцип работы трансформаторов, их виды и применение в электротехнике. Подробное описание с формулами и примерами расчетов.</p>
+                        <div class="section-card-meta">
+                            <span><i class="fas fa-file-alt"></i> 12 страниц</span>
+                            <span><i class="fas fa-clock"></i> 1.5 часа</span>
+                        </div>
+                        <div class="section-card-link"></div>
+                    </div>
+                    
+                    <div class="section-card" onclick="window.location.href='razdel3.html'">
+                        <div class="section-card-icon">📊</div>
+                        <h3>Раздел 3: Электрические измерения</h3>
+                        <p>Методы и приборы для измерения электрических величин. Правила проведения измерений и обработки результатов. Практические примеры и задачи.</p>
+                        <div class="section-card-meta">
+                            <span><i class="fas fa-file-alt"></i> 14 страниц</span>
+                            <span><i class="fas fa-clock"></i> 2 часа</span>
+                        </div>
+                        <div class="section-card-link"></div>
+                    </div>
+                </div>
+                
+                <button class="back-btn" onclick="window.location.href='index.html'">Назад на главную</button>
+            </div>
+        </section>
+        
+        <!-- Остальные разделы (тесты, приложения, видео, литература) -->
+        <!-- Тесты -->
+        <section id="tests" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Тесты и контроль знаний</h2>
+                <p>Проверьте свои знания с помощью тестов и контрольных работ.</p>
+                
+                <h3>Доступные тесты:</h3>
+                <ul class="content-list">
+                    <li>Основы электротехники</li>
+                    <li>Законы Ома и Кирхгофа</li>
+                    <li>Цепи постоянного тока</li>
+                    <li>Переменный ток</li>
+                    <li>Электромагнетизм</li>
+                    <li>Итоговый экзамен</li>
+                </ul>
+                
+                <button class="back-btn" onclick="switchSection('main')">Назад на главную</button>
+            </div>
+        </section>
+        
+        <!-- Приложения -->
+        <section id="apps" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Приложения</h2>
+                <p>Полезные приложения для расчетов и моделирования в электротехнике.</p>
+                
+                <h3>Рекомендуемые приложения:</h3>
+                <ul class="content-list">
+                    <li>Калькулятор электротехнических расчетов</li>
+                    <li>Моделирование электрических схем</li>
+                    <li>Справочник по электронным компонентам</li>
+                    <li>Программа для чтения электросхем</li>
+                    <li>Мобильные шпаргалки по формулам</li>
+                </ul>
+                
+                <button class="back-btn" onclick="switchSection('main')">Назад на главную</button>
+            </div>
+        </section>
+        
+        <!-- Видео -->
+        <section id="video" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Видеоматериалы</h2>
+                <p>Обучающие видео и лекции по электротехнике.</p>
+                
+                <h3>Категории видео:</h3>
+                <ul class="content-list">
+                    <li>Вводные лекции по электротехнике</li>
+                    <li>Практические эксперименты</li>
+                    <li>Решение задач</li>
+                    <li>Обзоры оборудования</li>
+                    <li>Методические рекомендации</li>
+                </ul>
+                
+                <button class="back-btn" onclick="switchSection('main')">Назад на главную</button>
+            </div>
+        </section>
+        
+        <!-- Литература -->
+        <section id="literature" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Литература</h2>
+                <p>Рекомендуемая литература для изучения электротехники.</p>
+                
+                <h3>Основные учебники:</h3>
+                <ul class="content-list">
+                    <li>Основы электротехники - Иванов И.И.</li>
+                    <li>Теоретические основы электротехники - Петров П.П.</li>
+                    <li>Справочник по электротехнике - Сидоров С.С.</li>
+                    <li>Электротехника и электроника - Алексеев А.А.</li>
+                    <li>Расчет электрических цепей - Васильев В.В.</li>
+                </ul>
+                
+                <button class="back-btn" onclick="switchSection('main')">Назад на главную</button>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 Электронный учебно-методический комплекс по электротехнике</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Функционал навигации
+        document.addEventListener('DOMContentLoaded', function() {
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const sections = document.querySelectorAll('.section');
+            const mainLogo = document.getElementById('mainLogo');
+            const blocks = document.querySelectorAll('.block[data-section]');
+            const backButtons = document.querySelectorAll('.back-btn');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mainNav = document.getElementById('mainNav');
+            
+            // Функция переключения разделов
+            function switchSection(sectionId) {
+                // Скрыть все разделы
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Показать выбранный раздел
+                const activeSection = document.getElementById(sectionId);
+                if (activeSection) {
+                    activeSection.classList.add('active');
+                }
+                
+                // Обновить активную кнопку в навигации
+                navButtons.forEach(button => {
+                    if (button.getAttribute('href') === sectionId + '.html' || 
+                        (sectionId === 'main' && button.getAttribute('href') === 'index.html')) {
+                        button.classList.add('active');
+                    } else {
+                        button.classList.remove('active');
+                    }
+                });
+                
+                // Закрыть меню на мобильных устройствах после выбора раздела
+                if (window.innerWidth <= 768) {
+                    mainNav.classList.remove('active');
+                }
+                
+                // Прокрутить к верху страницы
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Обработчики для кнопок навигации
+            navButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    if (href && href !== '#') {
+                        if (href === 'index.html' || href === 'prosl-razdely.html' || href === 'glossary.html') {
+                            window.location.href = href;
+                        } else {
+                            const sectionId = href.replace('.html', '');
+                            switchSection(sectionId);
+                        }
+                    }
+                });
+            });
+            
+            // Обработчики для карточек на главной
+            blocks.forEach(block => {
+                block.addEventListener('click', function() {
+                    const sectionId = this.getAttribute('data-section');
+                    switchSection(sectionId);
+                });
+            });
+            
+            // Обработчик для логотипа (возврат на главную)
+            mainLogo.addEventListener('click', function() {
+                window.location.href = 'index.html';
+            });
+            
+            // Обработчик для кнопки мобильного меню
+            mobileMenuBtn.addEventListener('click', function() {
+                mainNav.classList.toggle('active');
+            });
+            
+            // Закрытие меню при клике вне его области
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth <= 768 && 
+                    !event.target.closest('#mainNav') && 
+                    !event.target.closest('#mobileMenuBtn') &&
+                    mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
