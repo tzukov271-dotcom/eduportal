@@ -380,16 +380,16 @@
 <body>
     <header>
         <div class="container header-content">
-            <div class="logo" onclick="window.location.href='Главное.html'">Электро<span>Техника</span></div>
+            <div class="logo" onclick="window.location.href='index.html'">Электро<span>Техника</span></div>
             <div class="subject">Раздел 1: Машины переменного тока</div>
         </div>
     </header>
     
     <div class="container">
         <!-- Кнопка "Назад к разделам" -->
-        <button class="back-btn" onclick="window.location.href='прослойкаразделы.html'">
+        <a href="prosl-razdely.html" class="back-btn">
             <i class="fas fa-arrow-left"></i> Назад к разделам
-        </button>
+        </a>
         
         <div class="pages-container">
             <div class="pages-header">
@@ -602,9 +602,9 @@
             
             window.addEventListener('resize', updateProgressIndicator);
             
-            // Исправляем кнопку "Назад к разделам"
-            document.querySelector('.back-btn').addEventListener('click', function() {
-                window.location.href = 'прослойкаразделы.html';
+            // Исправляем логотип - ведет на главную
+            document.querySelector('.logo').addEventListener('click', function() {
+                window.location.href = 'index.html';
             });
             
             // Инициализация
