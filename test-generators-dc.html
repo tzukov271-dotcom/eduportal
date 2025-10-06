@@ -97,6 +97,11 @@
             border: 1px solid #ffeaa7;
         }
         
+        /* Стили для десктопного режима */
+        .desktop-mode {
+            display: block;
+        }
+        
         .matching-container {
             background: white;
             border-radius: 12px;
@@ -220,6 +225,274 @@
             padding: 4px 8px;
             cursor: pointer;
             font-size: 12px;
+        }
+        
+        /* Стили для мобильных режимов */
+        .mobile-mode {
+            display: none;
+        }
+        
+        .mode-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .mode-btn {
+            padding: 10px 20px;
+            border: 2px solid #3498db;
+            background: white;
+            color: #3498db;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .mode-btn.active {
+            background: #3498db;
+            color: white;
+        }
+        
+        /* Пошаговый режим */
+        .step-mode {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+        
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .step-counter {
+            font-size: 16px;
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            flex-grow: 1;
+            height: 6px;
+            background: #ecf0f1;
+            border-radius: 3px;
+            margin: 0 15px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #3498db;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        
+        .step-question {
+            background: #e3f2fd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .step-question-number {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .step-question-text {
+            color: #2c3e50;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .step-answers {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .step-answer {
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .step-answer:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .step-answer.selected {
+            border-color: #27ae60;
+            background: #d5f4e6;
+        }
+        
+        .step-answer-letter {
+            width: 30px;
+            height: 30px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-answer.selected .step-answer-letter {
+            background: #27ae60;
+        }
+        
+        .step-answer-text {
+            color: #555;
+            flex-grow: 1;
+        }
+        
+        .step-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+        }
+        
+        /* Компактный режим */
+        .compact-mode {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+        
+        .compact-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .compact-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+        
+        .compact-item.matched {
+            background: #e3f2fd;
+            border-color: #3498db;
+        }
+        
+        .compact-question {
+            flex-grow: 1;
+        }
+        
+        .compact-question-number {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .compact-question-text {
+            color: #555;
+            font-size: 14px;
+        }
+        
+        .compact-answer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .compact-current-answer {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #3498db;
+            background: white;
+        }
+        
+        .compact-item.matched .compact-current-answer {
+            background: #3498db;
+            color: white;
+        }
+        
+        .compact-select-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .answer-selector {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .answer-selector-title {
+            color: #2c3e50;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .answer-selector-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .answer-option {
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .answer-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .answer-option.selected {
+            border-color: #27ae60;
+            background: #d5f4e6;
         }
         
         .controls {
@@ -409,15 +682,23 @@
             border-radius: 15px 15px 0 0;
         }
 
+        /* Адаптивность */
         @media (max-width: 768px) {
+            .desktop-mode {
+                display: none;
+            }
+            
+            .mobile-mode {
+                display: block;
+            }
+            
             .container {
                 width: 95%;
                 padding: 15px;
             }
             
-            .columns-container {
+            .answer-selector-list {
                 grid-template-columns: 1fr;
-                gap: 20px;
             }
             
             .controls {
@@ -431,6 +712,21 @@
             
             .results-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .step-controls {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .step-controls .btn {
+                width: 100%;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mode-switcher {
+                display: none;
             }
         }
     </style>
@@ -454,11 +750,9 @@
                 
                 <div class="task-instructions">
                     <div class="instructions-title">📋 Инструкция по выполнению:</div>
-                    <p>1. Нажмите на понятие в левом столбце (оно выделится синим)</p>
-                    <p>2. Нажмите на формулу в правом столбце (она выделится зеленым)</p>
-                    <p>3. Соответствие автоматически установится</p>
-                    <p>4. Для удаления соответствия нажмите на крестик в списке соответствий</p>
-                    <p>5. После установки всех соответствий нажмите "Проверить ответы"</p>
+                    <p>1. Выберите удобный режим работы (для мобильных - пошаговый или компактный)</p>
+                    <p>2. Установите соответствия между понятиями и формулами</p>
+                    <p>3. После установки всех соответствий нажмите "Проверить ответы"</p>
                 </div>
 
                 <div class="history-info" id="historyInfo" style="display: none;">
@@ -468,103 +762,173 @@
                     лучший результат: <span id="bestScore">0</span>/10
                 </div>
             </div>
+
+            <!-- Переключатель режимов (только для мобильных) -->
+            <div class="mode-switcher">
+                <button class="mode-btn active" onclick="switchMode('step')">
+                    <i class="fas fa-list-ol"></i> Пошаговый
+                </button>
+                <button class="mode-btn" onclick="switchMode('compact')">
+                    <i class="fas fa-list"></i> Компактный
+                </button>
+                <button class="mode-btn" onclick="switchMode('desktop')">
+                    <i class="fas fa-desktop"></i> Классический
+                </button>
+            </div>
             
-            <div class="matching-container">
-                <div class="columns-container">
-                    <!-- Левый столбец - вопросы -->
-                    <div class="column">
-                        <div class="column-title">Понятия и определения</div>
-                        <div class="question-item" data-id="1">
-                            <div class="question-number">1</div>
-                            <div class="question-text">Ток якоря в генераторах с параллельным возбуждением</div>
+            <!-- Десктопный режим -->
+            <div class="desktop-mode" id="desktopMode">
+                <div class="matching-container">
+                    <div class="columns-container">
+                        <!-- Левый столбец - вопросы -->
+                        <div class="column">
+                            <div class="column-title">Понятия и определения</div>
+                            <div class="question-item" data-id="1">
+                                <div class="question-number">1</div>
+                                <div class="question-text">Ток якоря в генераторах с параллельным возбуждением</div>
+                            </div>
+                            <div class="question-item" data-id="2">
+                                <div class="question-number">2</div>
+                                <div class="question-text">Ток нагрузки в генераторах с параллельным возбуждением</div>
+                            </div>
+                            <div class="question-item" data-id="3">
+                                <div class="question-number">3</div>
+                                <div class="question-text">ЭДС на зажимах генератора в режиме магнитного насыщения при нагрузке</div>
+                            </div>
+                            <div class="question-item" data-id="4">
+                                <div class="question-number">4</div>
+                                <div class="question-text">Ток, созданный ЭДС остаточного магнетизма</div>
+                            </div>
+                            <div class="question-item" data-id="5">
+                                <div class="question-number">5</div>
+                                <div class="question-text">Характеристика холостого хода генератора с параллельным возбуждением</div>
+                            </div>
+                            <div class="question-item" data-id="6">
+                                <div class="question-number">6</div>
+                                <div class="question-text">Внешняя характеристика генератора с параллельным возбуждением</div>
+                            </div>
+                            <div class="question-item" data-id="7">
+                                <div class="question-number">7</div>
+                                <div class="question-text">Ток якоря в генераторах с последовательным возбуждением</div>
+                            </div>
+                            <div class="question-item" data-id="8">
+                                <div class="question-number">8</div>
+                                <div class="question-text">ЭДС якоря генератора постоянного тока</div>
+                            </div>
+                            <div class="question-item" data-id="9">
+                                <div class="question-number">9</div>
+                                <div class="question-text">Регулировочная характеристика генератора с параллельным возбуждением</div>
+                            </div>
+                            <div class="question-item" data-id="10">
+                                <div class="question-number">10</div>
+                                <div class="question-text">ЭДС в проводнике якоря генератора постоянного тока</div>
+                            </div>
                         </div>
-                        <div class="question-item" data-id="2">
-                            <div class="question-number">2</div>
-                            <div class="question-text">Ток нагрузки в генераторах с параллельным возбуждением</div>
-                        </div>
-                        <div class="question-item" data-id="3">
-                            <div class="question-number">3</div>
-                            <div class="question-text">ЭДС на зажимах генератора в режиме магнитного насыщения при нагрузке</div>
-                        </div>
-                        <div class="question-item" data-id="4">
-                            <div class="question-number">4</div>
-                            <div class="question-text">Ток, созданный ЭДС остаточного магнетизма</div>
-                        </div>
-                        <div class="question-item" data-id="5">
-                            <div class="question-number">5</div>
-                            <div class="question-text">Характеристика холостого хода генератора с параллельным возбуждением</div>
-                        </div>
-                        <div class="question-item" data-id="6">
-                            <div class="question-number">6</div>
-                            <div class="question-text">Внешняя характеристика генератора с параллельным возбуждением</div>
-                        </div>
-                        <div class="question-item" data-id="7">
-                            <div class="question-number">7</div>
-                            <div class="question-text">Ток якоря в генераторах с последовательным возбуждением</div>
-                        </div>
-                        <div class="question-item" data-id="8">
-                            <div class="question-number">8</div>
-                            <div class="question-text">ЭДС якоря генератора постоянного тока</div>
-                        </div>
-                        <div class="question-item" data-id="9">
-                            <div class="question-number">9</div>
-                            <div class="question-text">Регулировочная характеристика генератора с параллельным возбуждением</div>
-                        </div>
-                        <div class="question-item" data-id="10">
-                            <div class="question-number">10</div>
-                            <div class="question-text">ЭДС в проводнике якоря генератора постоянного тока</div>
+                        
+                        <!-- Правый столбец - ответы -->
+                        <div class="column">
+                            <div class="column-title">Формулы и характеристики</div>
+                            <div class="answer-item" data-id="А">
+                                <div class="answer-letter">А</div>
+                                <div class="answer-text">E = U + R<sub>я</sub>·I<sub>я</sub></div>
+                            </div>
+                            <div class="answer-item" data-id="Б">
+                                <div class="answer-letter">Б</div>
+                                <div class="answer-text">E = f(I<sub>в</sub>), I<sub>н</sub> = 0</div>
+                            </div>
+                            <div class="answer-item" data-id="В">
+                                <div class="answer-letter">В</div>
+                                <div class="answer-text">I<sub>я</sub> = I<sub>в</sub> = I<sub>н</sub></div>
+                            </div>
+                            <div class="answer-item" data-id="Г">
+                                <div class="answer-letter">Г</div>
+                                <div class="answer-text">I<sub>в</sub> = f(I<sub>н</sub>), U = const</div>
+                            </div>
+                            <div class="answer-item" data-id="Д">
+                                <div class="answer-letter">Д</div>
+                                <div class="answer-text">I = E<sub>ост</sub>/R<sub>в</sub></div>
+                            </div>
+                            <div class="answer-item" data-id="Е">
+                                <div class="answer-letter">Е</div>
+                                <div class="answer-text">I<sub>я</sub> = I<sub>н</sub> + I<sub>в</sub></div>
+                            </div>
+                            <div class="answer-item" data-id="Ж">
+                                <div class="answer-letter">Ж</div>
+                                <div class="answer-text">U = f(I<sub>п</sub>), R<sub>в</sub> = const</div>
+                            </div>
+                            <div class="answer-item" data-id="З">
+                                <div class="answer-letter">З</div>
+                                <div class="answer-text">e = Blv</div>
+                            </div>
+                            <div class="answer-item" data-id="И">
+                                <div class="answer-letter">И</div>
+                                <div class="answer-text">I<sub>н</sub> = (E - R<sub>я</sub>I<sub>я</sub>)/R<sub>н</sub></div>
+                            </div>
+                            <div class="answer-item" data-id="К">
+                                <div class="answer-letter">К</div>
+                                <div class="answer-text">E = C<sub>E</sub>nФ</div>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- Правый столбец - ответы -->
-                    <div class="column">
-                        <div class="column-title">Формулы и характеристики</div>
-                        <div class="answer-item" data-id="А">
-                            <div class="answer-letter">А</div>
-                            <div class="answer-text">E = U + R<sub>я</sub>·I<sub>я</sub></div>
-                        </div>
-                        <div class="answer-item" data-id="Б">
-                            <div class="answer-letter">Б</div>
-                            <div class="answer-text">E = f(I<sub>в</sub>), I<sub>н</sub> = 0</div>
-                        </div>
-                        <div class="answer-item" data-id="В">
-                            <div class="answer-letter">В</div>
-                            <div class="answer-text">I<sub>я</sub> = I<sub>в</sub> = I<sub>н</sub></div>
-                        </div>
-                        <div class="answer-item" data-id="Г">
-                            <div class="answer-letter">Г</div>
-                            <div class="answer-text">I<sub>в</sub> = f(I<sub>н</sub>), U = const</div>
-                        </div>
-                        <div class="answer-item" data-id="Д">
-                            <div class="answer-letter">Д</div>
-                            <div class="answer-text">I = E<sub>ост</sub>/R<sub>в</sub></div>
-                        </div>
-                        <div class="answer-item" data-id="Е">
-                            <div class="answer-letter">Е</div>
-                            <div class="answer-text">I<sub>я</sub> = I<sub>н</sub> + I<sub>в</sub></div>
-                        </div>
-                        <div class="answer-item" data-id="Ж">
-                            <div class="answer-letter">Ж</div>
-                            <div class="answer-text">U = f(I<sub>п</sub>), R<sub>в</sub> = const</div>
-                        </div>
-                        <div class="answer-item" data-id="З">
-                            <div class="answer-letter">З</div>
-                            <div class="answer-text">e = Blv</div>
-                        </div>
-                        <div class="answer-item" data-id="И">
-                            <div class="answer-letter">И</div>
-                            <div class="answer-text">I<sub>н</sub> = (E - R<sub>я</sub>I<sub>я</sub>)/R<sub>н</sub></div>
-                        </div>
-                        <div class="answer-item" data-id="К">
-                            <div class="answer-letter">К</div>
-                            <div class="answer-text">E = C<sub>E</sub>nФ</div>
-                        </div>
+                    <div class="matches-container">
+                        <div class="matches-title">Установленные соответствия</div>
+                        <div id="matchesList"></div>
                     </div>
                 </div>
-                
-                <div class="matches-container">
-                    <div class="matches-title">Установленные соответствия</div>
-                    <div id="matchesList"></div>
+            </div>
+
+            <!-- Мобильные режимы -->
+            <div class="mobile-mode">
+                <!-- Пошаговый режим -->
+                <div class="step-mode" id="stepMode">
+                    <div class="step-header">
+                        <div class="step-counter">Вопрос <span id="currentStep">1</span>/10</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="stepProgress" style="width: 10%"></div>
+                        </div>
+                        <div class="step-actions">
+                            <span id="stepStatus">Не отвечен</span>
+                        </div>
+                    </div>
+                    
+                    <div class="step-question">
+                        <div class="step-question-number" id="stepQuestionNumber">1.</div>
+                        <div class="step-question-text" id="stepQuestionText">Ток якоря в генераторах с параллельным возбуждением</div>
+                    </div>
+                    
+                    <div class="step-answers" id="stepAnswers">
+                        <!-- Ответы будут добавляться динамически -->
+                    </div>
+                    
+                    <div class="step-controls">
+                        <button class="btn btn-secondary" onclick="previousStep()" id="prevBtn" disabled>
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </button>
+                        <button class="btn btn-primary" onclick="nextStep()" id="nextBtn">
+                            Далее <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Компактный режим -->
+                <div class="compact-mode hidden" id="compactMode">
+                    <div class="compact-list" id="compactList">
+                        <!-- Список вопросов будет добавляться динамически -->
+                    </div>
+                </div>
+
+                <!-- Селектор ответов для компактного режима -->
+                <div class="answer-selector" id="answerSelector">
+                    <div class="answer-selector-title">Выберите ответ для вопроса <span id="currentQuestionNumber">1</span></div>
+                    <div class="answer-selector-list" id="answerSelectorList">
+                        <!-- Варианты ответов будут добавляться динамически -->
+                    </div>
+                    <div class="controls" style="margin-top: 20px;">
+                        <button class="btn btn-secondary" onclick="closeAnswerSelector()">
+                            <i class="fas fa-times"></i> Отмена
+                        </button>
+                    </div>
                 </div>
             </div>
             
@@ -619,28 +983,82 @@
     </footer>
 
     <script>
-        // Правильные соответствия
-        const correctMatches = {
-            "1": "Е",
-            "2": "И", 
-            "3": "А",
-            "4": "Д",
-            "5": "Б",
-            "6": "Ж",
-            "7": "В",
-            "8": "К",
-            "9": "Г",
-            "10": "З"
-        };
+        // Данные вопросов и ответов
+        const questions = [
+            {
+                id: "1",
+                text: "Ток якоря в генераторах с параллельным возбуждением",
+                correctAnswer: "Е"
+            },
+            {
+                id: "2", 
+                text: "Ток нагрузки в генераторах с параллельным возбуждением",
+                correctAnswer: "И"
+            },
+            {
+                id: "3",
+                text: "ЭДС на зажимах генератора в режиме магнитного насыщения при нагрузке",
+                correctAnswer: "А"
+            },
+            {
+                id: "4",
+                text: "Ток, созданный ЭДС остаточного магнетизма",
+                correctAnswer: "Д"
+            },
+            {
+                id: "5",
+                text: "Характеристика холостого хода генератора с параллельным возбуждением",
+                correctAnswer: "Б"
+            },
+            {
+                id: "6",
+                text: "Внешняя характеристика генератора с параллельным возбуждением",
+                correctAnswer: "Ж"
+            },
+            {
+                id: "7",
+                text: "Ток якоря в генераторах с последовательным возбуждением",
+                correctAnswer: "В"
+            },
+            {
+                id: "8",
+                text: "ЭДС якоря генератора постоянного тока",
+                correctAnswer: "К"
+            },
+            {
+                id: "9",
+                text: "Регулировочная характеристика генератора с параллельным возбуждением",
+                correctAnswer: "Г"
+            },
+            {
+                id: "10",
+                text: "ЭДС в проводнике якоря генератора постоянного тока",
+                correctAnswer: "З"
+            }
+        ];
 
+        const answers = [
+            { id: "А", text: "E = U + R<sub>я</sub>·I<sub>я</sub>" },
+            { id: "Б", text: "E = f(I<sub>в</sub>), I<sub>н</sub> = 0" },
+            { id: "В", text: "I<sub>я</sub> = I<sub>в</sub> = I<sub>н</sub>" },
+            { id: "Г", text: "I<sub>в</sub> = f(I<sub>н</sub>), U = const" },
+            { id: "Д", text: "I = E<sub>ост</sub>/R<sub>в</sub>" },
+            { id: "Е", text: "I<sub>я</sub> = I<sub>н</sub> + I<sub>в</sub>" },
+            { id: "Ж", text: "U = f(I<sub>п</sub>), R<sub>в</sub> = const" },
+            { id: "З", text: "e = Blv" },
+            { id: "И", text: "I<sub>н</sub> = (E - R<sub>я</sub>I<sub>я</sub>)/R<sub>н</sub>" },
+            { id: "К", text: "E = C<sub>E</sub>nФ" }
+        ];
+
+        // Глобальные переменные
         let userMatches = {};
         let selectedQuestion = null;
         let selectedAnswer = null;
-
-        // История результатов (сохраняется в localStorage)
+        let currentStep = 1;
+        let currentMode = 'step';
         let attemptHistory = [];
 
-        // Загрузка истории из localStorage
+        // Загрузка истории
         function loadHistory() {
             const savedHistory = localStorage.getItem('generatorsDCHistory');
             if (savedHistory) {
@@ -649,31 +1067,229 @@
             }
         }
 
-        // Сохранение истории в localStorage
         function saveHistory() {
             localStorage.setItem('generatorsDCHistory', JSON.stringify(attemptHistory));
         }
 
-        // Обновление отображения истории
         function updateHistoryDisplay() {
             if (attemptHistory.length > 0) {
                 document.getElementById('historyInfo').style.display = 'block';
                 document.getElementById('attemptsCount').textContent = attemptHistory.length;
-                
                 const bestScore = Math.max(...attemptHistory.map(attempt => attempt.score));
                 document.getElementById('bestScore').textContent = bestScore;
             }
         }
 
-        // Показать историю в результатах
+        // Переключение режимов
+        function switchMode(mode) {
+            currentMode = mode;
+            
+            // Обновляем активные кнопки
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Показываем/скрываем режимы
+            if (mode === 'desktop') {
+                document.getElementById('desktopMode').style.display = 'block';
+                document.getElementById('stepMode').style.display = 'none';
+                document.getElementById('compactMode').classList.add('hidden');
+            } else if (mode === 'step') {
+                document.getElementById('desktopMode').style.display = 'none';
+                document.getElementById('stepMode').style.display = 'block';
+                document.getElementById('compactMode').classList.add('hidden');
+                updateStepMode();
+            } else if (mode === 'compact') {
+                document.getElementById('desktopMode').style.display = 'none';
+                document.getElementById('stepMode').style.display = 'none';
+                document.getElementById('compactMode').classList.remove('hidden');
+                updateCompactMode();
+            }
+        }
+
+        // Пошаговый режим
+        function updateStepMode() {
+            const question = questions[currentStep - 1];
+            document.getElementById('currentStep').textContent = currentStep;
+            document.getElementById('stepQuestionNumber').textContent = `${question.id}.`;
+            document.getElementById('stepQuestionText').textContent = question.text;
+            document.getElementById('stepProgress').style.width = `${currentStep * 10}%`;
+            
+            // Обновляем статус
+            const status = userMatches[question.id] ? 'Отвечен' : 'Не отвечен';
+            document.getElementById('stepStatus').textContent = status;
+            document.getElementById('stepStatus').style.color = userMatches[question.id] ? '#27ae60' : '#e74c3c';
+            
+            // Заполняем варианты ответов
+            const answersContainer = document.getElementById('stepAnswers');
+            answersContainer.innerHTML = '';
+            
+            answers.forEach(answer => {
+                const answerElement = document.createElement('div');
+                answerElement.className = `step-answer ${userMatches[question.id] === answer.id ? 'selected' : ''}`;
+                answerElement.innerHTML = `
+                    <div class="step-answer-letter">${answer.id}</div>
+                    <div class="step-answer-text">${answer.text}</div>
+                `;
+                answerElement.onclick = () => selectStepAnswer(answer.id);
+                answersContainer.appendChild(answerElement);
+            });
+            
+            // Обновляем кнопки навигации
+            document.getElementById('prevBtn').disabled = currentStep === 1;
+            document.getElementById('nextBtn').textContent = currentStep === 10 ? 'Завершить' : 'Далее <i class="fas fa-arrow-right"></i>';
+        }
+
+        function selectStepAnswer(answerId) {
+            const questionId = questions[currentStep - 1].id;
+            userMatches[questionId] = answerId;
+            updateStepMode();
+        }
+
+        function previousStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepMode();
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < 10) {
+                currentStep++;
+                updateStepMode();
+            }
+        }
+
+        // Компактный режим
+        function updateCompactMode() {
+            const compactList = document.getElementById('compactList');
+            compactList.innerHTML = '';
+            
+            questions.forEach(question => {
+                const userAnswer = userMatches[question.id];
+                const item = document.createElement('div');
+                item.className = `compact-item ${userAnswer ? 'matched' : ''}`;
+                item.innerHTML = `
+                    <div class="compact-question">
+                        <div class="compact-question-number">${question.id}.</div>
+                        <div class="compact-question-text">${question.text}</div>
+                    </div>
+                    <div class="compact-answer">
+                        <div class="compact-current-answer">${userAnswer || '?'}</div>
+                        <button class="compact-select-btn" onclick="openAnswerSelector('${question.id}')">
+                            ${userAnswer ? 'Изменить' : 'Выбрать'}
+                        </button>
+                    </div>
+                `;
+                compactList.appendChild(item);
+            });
+        }
+
+        function openAnswerSelector(questionId) {
+            document.getElementById('currentQuestionNumber').textContent = questionId;
+            selectedQuestion = questionId;
+            
+            const selectorList = document.getElementById('answerSelectorList');
+            selectorList.innerHTML = '';
+            
+            answers.forEach(answer => {
+                const option = document.createElement('div');
+                option.className = `answer-option ${userMatches[questionId] === answer.id ? 'selected' : ''}`;
+                option.innerHTML = `
+                    <strong>${answer.id}.</strong> ${answer.text}
+                `;
+                option.onclick = () => selectCompactAnswer(answer.id);
+                selectorList.appendChild(option);
+            });
+            
+            document.getElementById('answerSelector').style.display = 'block';
+        }
+
+        function selectCompactAnswer(answerId) {
+            userMatches[selectedQuestion] = answerId;
+            closeAnswerSelector();
+            updateCompactMode();
+        }
+
+        function closeAnswerSelector() {
+            document.getElementById('answerSelector').style.display = 'none';
+            selectedQuestion = null;
+        }
+
+        // Общие функции
+        function clearAllMatches() {
+            userMatches = {};
+            if (currentMode === 'step') {
+                updateStepMode();
+            } else if (currentMode === 'compact') {
+                updateCompactMode();
+            }
+            updateMatchesDisplay();
+        }
+
+        function checkAnswers() {
+            let correctCount = 0;
+            const resultsList = document.getElementById('resultsList');
+            resultsList.innerHTML = '';
+            
+            questions.forEach(question => {
+                const userAnswer = userMatches[question.id];
+                const isCorrect = userAnswer === question.correctAnswer;
+                if (isCorrect) correctCount++;
+                
+                const correctAnswer = answers.find(a => a.id === question.correctAnswer);
+                const userAnswerObj = answers.find(a => a.id === userAnswer);
+                
+                const resultItem = document.createElement('div');
+                resultItem.className = `result-item ${isCorrect ? 'correct' : 'incorrect'}`;
+                resultItem.innerHTML = `
+                    <div class="result-question">${question.id}. ${question.text}</div>
+                    <div class="user-match ${isCorrect ? 'correct-match' : 'incorrect-match'}">
+                        Ваш ответ: ${userAnswer || 'Не установлено'} ${userAnswer ? userAnswerObj.text : ''}
+                    </div>
+                    <div class="correct-match">
+                        Правильный ответ: ${question.correctAnswer} ${correctAnswer.text}
+                    </div>
+                `;
+                resultsList.appendChild(resultItem);
+            });
+            
+            // Сохраняем результат
+            const attempt = {
+                date: new Date().toLocaleString('ru-RU'),
+                score: correctCount,
+                matches: {...userMatches}
+            };
+            
+            attemptHistory.push(attempt);
+            saveHistory();
+            
+            document.getElementById('finalScore').textContent = correctCount;
+            document.getElementById('taskPage').classList.add('hidden');
+            document.getElementById('resultsPage').classList.remove('hidden');
+            showResultsHistory();
+        }
+
+        function restartTask() {
+            userMatches = {};
+            currentStep = 1;
+            document.getElementById('resultsPage').classList.add('hidden');
+            document.getElementById('taskPage').classList.remove('hidden');
+            
+            if (currentMode === 'step') {
+                updateStepMode();
+            } else if (currentMode === 'compact') {
+                updateCompactMode();
+            }
+        }
+
         function showResultsHistory() {
             const historyList = document.getElementById('historyList');
             historyList.innerHTML = '';
             
             if (attemptHistory.length > 0) {
                 document.getElementById('resultsHistory').style.display = 'block';
-                
-                // Показываем последние 5 попыток
                 const recentAttempts = attemptHistory.slice(-5).reverse();
                 
                 recentAttempts.forEach((attempt, index) => {
@@ -688,204 +1304,14 @@
             }
         }
 
-        // Инициализация кликов
-        function initializeClicks() {
-            const questions = document.querySelectorAll('.question-item');
-            const answers = document.querySelectorAll('.answer-item');
-            
-            questions.forEach(question => {
-                question.addEventListener('click', () => selectQuestion(question));
-            });
-            
-            answers.forEach(answer => {
-                answer.addEventListener('click', () => selectAnswer(answer));
-            });
-        }
-
-        // Выбор вопроса
-        function selectQuestion(question) {
-            // Сбрасываем предыдущий выбор вопроса
-            document.querySelectorAll('.question-item').forEach(q => {
-                q.classList.remove('selected');
-            });
-            
-            question.classList.add('selected');
-            selectedQuestion = question;
-            
-            // Если уже выбран ответ - устанавливаем соответствие
-            if (selectedAnswer) {
-                setMatch(selectedQuestion.dataset.id, selectedAnswer.dataset.id);
-                resetSelection();
-            }
-        }
-
-        // Выбор ответа
-        function selectAnswer(answer) {
-            // Сбрасываем предыдущий выбор ответа
-            document.querySelectorAll('.answer-item').forEach(a => {
-                a.classList.remove('selected');
-            });
-            
-            answer.classList.add('selected');
-            selectedAnswer = answer;
-            
-            // Если уже выбран вопрос - устанавливаем соответствие
-            if (selectedQuestion) {
-                setMatch(selectedQuestion.dataset.id, selectedAnswer.dataset.id);
-                resetSelection();
-            }
-        }
-
-        // Сброс выбора
-        function resetSelection() {
-            selectedQuestion = null;
-            selectedAnswer = null;
-            document.querySelectorAll('.question-item, .answer-item').forEach(el => {
-                el.classList.remove('selected');
-            });
-        }
-
-        // Установить соответствие
-        function setMatch(questionId, answerId) {
-            // Удаляем предыдущее соответствие для этого вопроса
-            if (userMatches[questionId]) {
-                const prevAnswerId = userMatches[questionId];
-                document.querySelector(`.answer-item[data-id="${prevAnswerId}"]`).classList.remove('matched');
-            }
-            
-            // Удаляем предыдущее соответствие для этого ответа
-            Object.keys(userMatches).forEach(qId => {
-                if (userMatches[qId] === answerId) {
-                    delete userMatches[qId];
-                    document.querySelector(`.question-item[data-id="${qId}"]`).classList.remove('matched');
-                }
-            });
-            
-            // Устанавливаем новое соответствие
-            userMatches[questionId] = answerId;
-            document.querySelector(`.question-item[data-id="${questionId}"]`).classList.add('matched');
-            document.querySelector(`.answer-item[data-id="${answerId}"]`).classList.add('matched');
-            
-            updateMatchesDisplay();
-        }
-
-        // Удалить соответствие
-        function removeMatch(questionId) {
-            const answerId = userMatches[questionId];
-            delete userMatches[questionId];
-            
-            document.querySelector(`.question-item[data-id="${questionId}"]`).classList.remove('matched');
-            if (answerId) {
-                document.querySelector(`.answer-item[data-id="${answerId}"]`).classList.remove('matched');
-            }
-            
-            updateMatchesDisplay();
-        }
-
-        // Обновить отображение соответствий
-        function updateMatchesDisplay() {
-            const matchesList = document.getElementById('matchesList');
-            matchesList.innerHTML = '';
-            
-            Object.keys(userMatches).forEach(questionId => {
-                const answerId = userMatches[questionId];
-                const question = document.querySelector(`.question-item[data-id="${questionId}"]`);
-                const answer = document.querySelector(`.answer-item[data-id="${answerId}"]`);
-                
-                if (question && answer) {
-                    const matchItem = document.createElement('div');
-                    matchItem.className = 'match-item';
-                    matchItem.innerHTML = `
-                        <div class="match-question">${questionId}. ${question.querySelector('.question-text').textContent}</div>
-                        <div class="match-answer">→ ${answerId}. ${answer.querySelector('.answer-text').innerHTML}</div>
-                        <button class="remove-match" onclick="removeMatch('${questionId}')">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    `;
-                    matchesList.appendChild(matchItem);
-                }
-            });
-        }
-
-        // Очистить все соответствия
-        function clearAllMatches() {
-            userMatches = {};
-            document.querySelectorAll('.question-item, .answer-item').forEach(el => {
-                el.classList.remove('matched');
-            });
-            updateMatchesDisplay();
-            resetSelection();
-        }
-
-        // Проверить ответы
-        function checkAnswers() {
-            let correctCount = 0;
-            const resultsList = document.getElementById('resultsList');
-            resultsList.innerHTML = '';
-            
-            // Проверяем все 10 вопросов
-            for (let i = 1; i <= 10; i++) {
-                const questionId = i.toString();
-                const userAnswer = userMatches[questionId];
-                const correctAnswer = correctMatches[questionId];
-                const isCorrect = userAnswer === correctAnswer;
-                
-                if (isCorrect) correctCount++;
-                
-                const questionElement = document.querySelector(`.question-item[data-id="${questionId}"]`);
-                const correctAnswerElement = document.querySelector(`.answer-item[data-id="${correctAnswer}"]`);
-                
-                if (questionElement && correctAnswerElement) {
-                    const resultItem = document.createElement('div');
-                    resultItem.className = `result-item ${isCorrect ? 'correct' : 'incorrect'}`;
-                    
-                    resultItem.innerHTML = `
-                        <div class="result-question">${questionId}. ${questionElement.querySelector('.question-text').textContent}</div>
-                        <div class="user-match ${isCorrect ? 'correct-match' : 'incorrect-match'}">
-                            Ваш ответ: ${userAnswer || 'Не установлено'} ${userAnswer ? correctAnswerElement.querySelector('.answer-text').innerHTML : ''}
-                        </div>
-                        <div class="correct-match">
-                            Правильный ответ: ${correctAnswer} ${correctAnswerElement.querySelector('.answer-text').innerHTML}
-                        </div>
-                    `;
-                    
-                    resultsList.appendChild(resultItem);
-                }
-            }
-            
-            // Сохраняем результат в историю
-            const attempt = {
-                date: new Date().toLocaleString('ru-RU'),
-                score: correctCount,
-                matches: {...userMatches}
-            };
-            
-            attemptHistory.push(attempt);
-            saveHistory();
-            
-            document.getElementById('finalScore').textContent = correctCount;
-            document.getElementById('taskPage').classList.add('hidden');
-            document.getElementById('resultsPage').classList.remove('hidden');
-            
-            showResultsHistory();
-        }
-
-        // Перезапустить задание
-        function restartTask() {
-            userMatches = {};
-            document.querySelectorAll('.question-item, .answer-item').forEach(el => {
-                el.classList.remove('matched');
-            });
-            updateMatchesDisplay();
-            resetSelection();
-            document.getElementById('resultsPage').classList.add('hidden');
-            document.getElementById('taskPage').classList.remove('hidden');
-        }
-
-        // Инициализация при загрузке
+        // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
-            initializeClicks();
             loadHistory();
+            if (window.innerWidth <= 768) {
+                switchMode('step');
+            } else {
+                switchMode('desktop');
+            }
         });
     </script>
 </body>
