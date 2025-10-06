@@ -438,7 +438,7 @@
             <nav id="mainNav">
                 <a href="index.html" class="nav-btn active">Главная</a>
                 <a href="prosl-razdely.html" class="nav-btn">Разделы</a>
-                <a href="#" class="nav-btn">Тесты</a>
+                <a href="tests.html" class="nav-btn">Тесты</a>
                 <a href="#" class="nav-btn">Приложения</a>
                 <a href="#" class="nav-btn">Видео</a>
                 <a href="glossary.html" class="nav-btn">Глоссарий</a>
@@ -465,7 +465,7 @@
                     <div class="block-link"></div>
                 </div>
                 
-                <div class="block" data-section="tests">
+                <div class="block" onclick="window.location.href='tests.html'">
                     <div class="block-icon">📝</div>
                     <div class="block-content">
                         <h3>Тесты</h3>
@@ -694,7 +694,7 @@
                     e.preventDefault();
                     const href = this.getAttribute('href');
                     if (href && href !== '#') {
-                        if (href === 'index.html' || href === 'prosl-razdely.html' || href === 'glossary.html') {
+                        if (href === 'index.html' || href === 'prosl-razdely.html' || href === 'glossary.html' || href === 'tests.html') {
                             window.location.href = href;
                         } else {
                             const sectionId = href.replace('.html', '');
