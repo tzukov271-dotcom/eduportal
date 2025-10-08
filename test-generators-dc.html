@@ -233,7 +233,7 @@
         }
         
         .mode-switcher {
-            display: flex;
+            display: none;
             justify-content: center;
             gap: 10px;
             margin: 20px 0;
@@ -692,6 +692,10 @@
                 display: block;
             }
             
+            .mode-switcher {
+                display: flex;
+            }
+            
             .container {
                 width: 95%;
                 padding: 15px;
@@ -721,12 +725,6 @@
             
             .step-controls .btn {
                 width: 100%;
-            }
-        }
-        
-        @media (min-width: 769px) {
-            .mode-switcher {
-                display: none;
             }
         }
     </style>
@@ -770,9 +768,6 @@
                 </button>
                 <button class="mode-btn" onclick="switchMode('compact')">
                     <i class="fas fa-list"></i> Компактный
-                </button>
-                <button class="mode-btn" onclick="switchMode('desktop')">
-                    <i class="fas fa-desktop"></i> Классический
                 </button>
             </div>
             
@@ -1055,7 +1050,7 @@
         let selectedQuestion = null;
         let selectedAnswer = null;
         let currentStep = 1;
-        let currentMode = 'step';
+        let currentMode = 'desktop';
         let attemptHistory = [];
 
         // Загрузка истории
@@ -1080,6 +1075,119 @@
             }
         }
 
+        // Инициализация десктопного режима
+        function initializeDesktopMode() {
+            const questionItems = document.querySelectorAll('.question-item');
+            const answerItems = document.querySelectorAll('.answer-item');
+            
+            questionItems.forEach(question => {
+                question.addEventListener('click', function() {
+                    // Убираем выделение у всех вопросов
+                    questionItems.forEach(q => q.classList.remove('selected'));
+                    // Выделяем текущий вопрос
+                    this.classList.add('selected');
+                    selectedQuestion = this;
+                    
+                    // Если уже выбран ответ - создаем соответствие
+                    if (selectedAnswer) {
+                        createDesktopMatch(selectedQuestion.dataset.id, selectedAnswer.dataset.id);
+                        resetDesktopSelection();
+                    }
+                });
+            });
+            
+            answerItems.forEach(answer => {
+                answer.addEventListener('click', function() {
+                    // Убираем выделение у всех ответов
+                    answerItems.forEach(a => a.classList.remove('selected'));
+                    // Выделяем текущий ответ
+                    this.classList.add('selected');
+                    selectedAnswer = this;
+                    
+                    // Если уже выбран вопрос - создаем соответствие
+                    if (selectedQuestion) {
+                        createDesktopMatch(selectedQuestion.dataset.id, selectedAnswer.dataset.id);
+                        resetDesktopSelection();
+                    }
+                });
+            });
+            
+            updateMatchesDisplay();
+        }
+
+        function createDesktopMatch(questionId, answerId) {
+            // Удаляем предыдущее соответствие для этого вопроса
+            if (userMatches[questionId]) {
+                const prevAnswerId = userMatches[questionId];
+                const prevAnswer = document.querySelector(`.answer-item[data-id="${prevAnswerId}"]`);
+                if (prevAnswer) prevAnswer.classList.remove('matched');
+            }
+            
+            // Удаляем предыдущее соответствие для этого ответа
+            Object.keys(userMatches).forEach(qId => {
+                if (userMatches[qId] === answerId) {
+                    delete userMatches[qId];
+                    const prevQuestion = document.querySelector(`.question-item[data-id="${qId}"]`);
+                    if (prevQuestion) prevQuestion.classList.remove('matched');
+                }
+            });
+            
+            // Устанавливаем новое соответствие
+            userMatches[questionId] = answerId;
+            
+            const question = document.querySelector(`.question-item[data-id="${questionId}"]`);
+            const answer = document.querySelector(`.answer-item[data-id="${answerId}"]`);
+            
+            if (question) question.classList.add('matched');
+            if (answer) answer.classList.add('matched');
+            
+            updateMatchesDisplay();
+        }
+
+        function resetDesktopSelection() {
+            selectedQuestion = null;
+            selectedAnswer = null;
+            document.querySelectorAll('.question-item, .answer-item').forEach(el => {
+                el.classList.remove('selected');
+            });
+        }
+
+        function removeMatch(questionId) {
+            const answerId = userMatches[questionId];
+            delete userMatches[questionId];
+            
+            document.querySelector(`.question-item[data-id="${questionId}"]`).classList.remove('matched');
+            if (answerId) {
+                document.querySelector(`.answer-item[data-id="${answerId}"]`).classList.remove('matched');
+            }
+            
+            updateMatchesDisplay();
+        }
+
+        function updateMatchesDisplay() {
+            const matchesList = document.getElementById('matchesList');
+            matchesList.innerHTML = '';
+            
+            Object.keys(userMatches).forEach(questionId => {
+                const answerId = userMatches[questionId];
+                const question = document.querySelector(`.question-item[data-id="${questionId}"]`);
+                const answer = document.querySelector(`.answer-item[data-id="${answerId}"]`);
+                
+                if (question && answer) {
+                    const matchItem = document.createElement('div');
+                    matchItem.className = 'match-item';
+                    matchItem.innerHTML = `
+                        <div class="match-question">${questionId}. ${question.querySelector('.question-text').textContent}</div>
+                        <div class="match-answer">→ ${answerId}. ${answer.querySelector('.answer-text').innerHTML}</div>
+                        <button class="remove-match" onclick="removeMatch('${questionId}')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    matchesList.appendChild(matchItem);
+                }
+            });
+        }
+
         // Переключение режимов
         function switchMode(mode) {
             currentMode = mode;
@@ -1090,19 +1198,19 @@
             });
             event.target.classList.add('active');
             
-            // Показываем/скрываем режимы
+            // Скрываем все режимы
+            document.getElementById('desktopMode').style.display = 'none';
+            document.getElementById('stepMode').style.display = 'none';
+            document.getElementById('compactMode').classList.add('hidden');
+            document.getElementById('answerSelector').style.display = 'none';
+            
+            // Показываем выбранный режим
             if (mode === 'desktop') {
                 document.getElementById('desktopMode').style.display = 'block';
-                document.getElementById('stepMode').style.display = 'none';
-                document.getElementById('compactMode').classList.add('hidden');
             } else if (mode === 'step') {
-                document.getElementById('desktopMode').style.display = 'none';
                 document.getElementById('stepMode').style.display = 'block';
-                document.getElementById('compactMode').classList.add('hidden');
                 updateStepMode();
             } else if (mode === 'compact') {
-                document.getElementById('desktopMode').style.display = 'none';
-                document.getElementById('stepMode').style.display = 'none';
                 document.getElementById('compactMode').classList.remove('hidden');
                 updateCompactMode();
             }
@@ -1220,12 +1328,16 @@
         // Общие функции
         function clearAllMatches() {
             userMatches = {};
-            if (currentMode === 'step') {
+            if (currentMode === 'desktop') {
+                document.querySelectorAll('.question-item, .answer-item').forEach(el => {
+                    el.classList.remove('matched');
+                });
+                updateMatchesDisplay();
+            } else if (currentMode === 'step') {
                 updateStepMode();
             } else if (currentMode === 'compact') {
                 updateCompactMode();
             }
-            updateMatchesDisplay();
         }
 
         function checkAnswers() {
@@ -1277,7 +1389,12 @@
             document.getElementById('resultsPage').classList.add('hidden');
             document.getElementById('taskPage').classList.remove('hidden');
             
-            if (currentMode === 'step') {
+            if (currentMode === 'desktop') {
+                document.querySelectorAll('.question-item, .answer-item').forEach(el => {
+                    el.classList.remove('matched');
+                });
+                updateMatchesDisplay();
+            } else if (currentMode === 'step') {
                 updateStepMode();
             } else if (currentMode === 'compact') {
                 updateCompactMode();
@@ -1307,12 +1424,43 @@
         // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
             loadHistory();
-            if (window.innerWidth <= 768) {
+            
+            // Определяем устройство и инициализируем соответствующий режим
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                document.querySelector('.mode-switcher').style.display = 'flex';
+                document.getElementById('desktopMode').style.display = 'none';
+                document.querySelector('.mobile-mode').style.display = 'block';
                 switchMode('step');
             } else {
-                switchMode('desktop');
+                document.querySelector('.mode-switcher').style.display = 'none';
+                document.getElementById('desktopMode').style.display = 'block';
+                document.querySelector('.mobile-mode').style.display = 'none';
+                initializeDesktopMode();
+            }
+        });
+
+        // Обработчик изменения размера окна
+        window.addEventListener('resize', function() {
+            const isMobile = window.innerWidth <= 768;
+            const modeSwitcher = document.querySelector('.mode-switcher');
+            
+            if (isMobile && modeSwitcher.style.display === 'none') {
+                // Переключились на мобильный
+                modeSwitcher.style.display = 'flex';
+                document.getElementById('desktopMode').style.display = 'none';
+                document.querySelector('.mobile-mode').style.display = 'block';
+                switchMode('step');
+            } else if (!isMobile && modeSwitcher.style.display !== 'none') {
+                // Переключились на десктоп
+                modeSwitcher.style.display = 'none';
+                document.getElementById('desktopMode').style.display = 'block';
+                document.querySelector('.mobile-mode').style.display = 'none';
+                initializeDesktopMode();
             }
         });
     </script>
 </body>
 </html>
+
