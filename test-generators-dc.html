@@ -40,6 +40,7 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            position: relative;
         }
         
         .logo {
@@ -52,6 +53,63 @@
             color: #ffdd59;
         }
         
+        /* НАВИГАЦИЯ КАК В ОРИГИНАЛЕ */
+        .mobile-nav {
+            display: none;
+            width: 100%;
+            margin-top: 15px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 110px;
+            max-width: 140px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .nav-btn.active {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+
         .task-info {
             background: white;
             border-radius: 12px;
@@ -232,27 +290,9 @@
             display: none;
         }
         
+        /* УБИРАЕМ СТАРЫЙ ПЕРЕКЛЮЧАТЕЛЬ */
         .mode-switcher {
             display: none;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-        }
-        
-        .mode-btn {
-            padding: 10px 20px;
-            border: 2px solid #3498db;
-            background: white;
-            color: #3498db;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .mode-btn.active {
-            background: #3498db;
-            color: white;
         }
         
         /* Пошаговый режим */
@@ -692,8 +732,12 @@
                 display: block;
             }
             
-            .mode-switcher {
-                display: flex;
+            .mobile-nav {
+                display: block;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
             }
             
             .container {
@@ -726,14 +770,44 @@
             .step-controls .btn {
                 width: 100%;
             }
+            
+            .nav-buttons {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                max-width: none;
+                min-width: auto;
+                margin-bottom: 5px;
+                padding: 12px;
+                border-radius: 5px;
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="container header-content">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
             <div class="logo">Электро<span>Техника</span></div>
             <div style="font-size: 16px; opacity: 0.9;">Практическое задание</div>
+            
+            <!-- НАВИГАЦИЯ КАК В ОРИГИНАЛЕ -->
+            <nav class="mobile-nav" id="mobileNav">
+                <div class="nav-buttons">
+                    <button class="nav-btn active" onclick="switchMode('step')">
+                        <i class="fas fa-list-ol"></i> Пошаговый
+                    </button>
+                    <button class="nav-btn" onclick="switchMode('compact')">
+                        <i class="fas fa-list"></i> Компактный
+                    </button>
+                    <button class="nav-btn" onclick="switchMode('desktop')">
+                        <i class="fas fa-desktop"></i> Классический
+                    </button>
+                </div>
+            </nav>
         </div>
     </header>
     
@@ -748,7 +822,7 @@
                 
                 <div class="task-instructions">
                     <div class="instructions-title">📋 Инструкция по выполнению:</div>
-                    <p>1. Выберите удобный режим работы (для мобильных - пошаговый или компактный)</p>
+                    <p>1. Выберите режим работы в меню выше</p>
                     <p>2. Установите соответствия между понятиями и формулами</p>
                     <p>3. После установки всех соответствий нажмите "Проверить ответы"</p>
                 </div>
@@ -759,16 +833,6 @@
                     <span id="attemptsCount">0</span> попыток, 
                     лучший результат: <span id="bestScore">0</span>/10
                 </div>
-            </div>
-
-            <!-- Переключатель режимов (только для мобильных) -->
-            <div class="mode-switcher">
-                <button class="mode-btn active" onclick="switchMode('step')">
-                    <i class="fas fa-list-ol"></i> Пошаговый
-                </button>
-                <button class="mode-btn" onclick="switchMode('compact')">
-                    <i class="fas fa-list"></i> Компактный
-                </button>
             </div>
             
             <!-- Десктопный режим -->
@@ -1193,7 +1257,7 @@
             currentMode = mode;
             
             // Обновляем активные кнопки
-            document.querySelectorAll('.mode-btn').forEach(btn => {
+            document.querySelectorAll('.nav-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
             event.target.classList.add('active');
@@ -1207,6 +1271,7 @@
             // Показываем выбранный режим
             if (mode === 'desktop') {
                 document.getElementById('desktopMode').style.display = 'block';
+                initializeDesktopMode();
             } else if (mode === 'step') {
                 document.getElementById('stepMode').style.display = 'block';
                 updateStepMode();
@@ -1425,16 +1490,21 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadHistory();
             
+            // Обработчик мобильного меню
+            document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+                document.getElementById('mobileNav').classList.toggle('active');
+            });
+            
             // Определяем устройство и инициализируем соответствующий режим
             const isMobile = window.innerWidth <= 768;
             
             if (isMobile) {
-                document.querySelector('.mode-switcher').style.display = 'flex';
+                document.getElementById('mobileNav').style.display = 'block';
                 document.getElementById('desktopMode').style.display = 'none';
                 document.querySelector('.mobile-mode').style.display = 'block';
                 switchMode('step');
             } else {
-                document.querySelector('.mode-switcher').style.display = 'none';
+                document.getElementById('mobileNav').style.display = 'none';
                 document.getElementById('desktopMode').style.display = 'block';
                 document.querySelector('.mobile-mode').style.display = 'none';
                 initializeDesktopMode();
@@ -1444,17 +1514,17 @@
         // Обработчик изменения размера окна
         window.addEventListener('resize', function() {
             const isMobile = window.innerWidth <= 768;
-            const modeSwitcher = document.querySelector('.mode-switcher');
+            const mobileNav = document.getElementById('mobileNav');
             
-            if (isMobile && modeSwitcher.style.display === 'none') {
+            if (isMobile && mobileNav.style.display === 'none') {
                 // Переключились на мобильный
-                modeSwitcher.style.display = 'flex';
+                mobileNav.style.display = 'block';
                 document.getElementById('desktopMode').style.display = 'none';
                 document.querySelector('.mobile-mode').style.display = 'block';
                 switchMode('step');
-            } else if (!isMobile && modeSwitcher.style.display !== 'none') {
+            } else if (!isMobile && mobileNav.style.display !== 'none') {
                 // Переключились на десктоп
-                modeSwitcher.style.display = 'none';
+                mobileNav.style.display = 'none';
                 document.getElementById('desktopMode').style.display = 'block';
                 document.querySelector('.mobile-mode').style.display = 'none';
                 initializeDesktopMode();
@@ -1463,4 +1533,3 @@
     </script>
 </body>
 </html>
-
