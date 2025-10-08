@@ -290,11 +290,6 @@
             display: none;
         }
         
-        /* УБИРАЕМ СТАРЫЙ ПЕРЕКЛЮЧАТЕЛЬ */
-        .mode-switcher {
-            display: none;
-        }
-        
         /* Пошаговый режим */
         .step-mode {
             background: white;
@@ -418,6 +413,7 @@
             padding: 20px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
             margin-bottom: 20px;
+            display: none;
         }
         
         .compact-list {
@@ -971,7 +967,7 @@
                 </div>
 
                 <!-- Компактный режим -->
-                <div class="compact-mode hidden" id="compactMode">
+                <div class="compact-mode" id="compactMode">
                     <div class="compact-list" id="compactList">
                         <!-- Список вопросов будет добавляться динамически -->
                     </div>
@@ -1265,7 +1261,7 @@
             // Скрываем все режимы
             document.getElementById('desktopMode').style.display = 'none';
             document.getElementById('stepMode').style.display = 'none';
-            document.getElementById('compactMode').classList.add('hidden');
+            document.getElementById('compactMode').style.display = 'none';
             document.getElementById('answerSelector').style.display = 'none';
             
             // Показываем выбранный режим
@@ -1276,12 +1272,12 @@
                 document.getElementById('stepMode').style.display = 'block';
                 updateStepMode();
             } else if (mode === 'compact') {
-                document.getElementById('compactMode').classList.remove('hidden');
+                document.getElementById('compactMode').style.display = 'block';
                 updateCompactMode();
             }
         }
 
-        // Пошаговый режим
+        // Пошаговый режим - ИСПРАВЛЕННАЯ ФУНКЦИЯ
         function updateStepMode() {
             const question = questions[currentStep - 1];
             document.getElementById('currentStep').textContent = currentStep;
@@ -1294,18 +1290,18 @@
             document.getElementById('stepStatus').textContent = status;
             document.getElementById('stepStatus').style.color = userMatches[question.id] ? '#27ae60' : '#e74c3c';
             
-            // Заполняем варианты ответов
+            // Заполняем варианты ответов - ИСПРАВЛЕННАЯ ЧАСТЬ
             const answersContainer = document.getElementById('stepAnswers');
             answersContainer.innerHTML = '';
             
             answers.forEach(answer => {
                 const answerElement = document.createElement('div');
                 answerElement.className = `step-answer ${userMatches[question.id] === answer.id ? 'selected' : ''}`;
+                answerElement.onclick = () => selectStepAnswer(answer.id);
                 answerElement.innerHTML = `
                     <div class="step-answer-letter">${answer.id}</div>
                     <div class="step-answer-text">${answer.text}</div>
                 `;
-                answerElement.onclick = () => selectStepAnswer(answer.id);
                 answersContainer.appendChild(answerElement);
             });
             
@@ -1369,10 +1365,10 @@
             answers.forEach(answer => {
                 const option = document.createElement('div');
                 option.className = `answer-option ${userMatches[questionId] === answer.id ? 'selected' : ''}`;
+                option.onclick = () => selectCompactAnswer(answer.id);
                 option.innerHTML = `
                     <strong>${answer.id}.</strong> ${answer.text}
                 `;
-                option.onclick = () => selectCompactAnswer(answer.id);
                 selectorList.appendChild(option);
             });
             
