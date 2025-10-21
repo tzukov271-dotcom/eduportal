@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Раздел 3:Трансформаторы </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            -webkit-text-size-adjust: 100%; /* Предотвращает авто-масштабирование текста на iOS */
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 20px 0;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .logo span {
+            color: #ffdd59;
+        }
+        
+        .subject {
+            font-size: 16px;
+            margin-top: -10px;
+            margin-bottom: 15px;
+            opacity: 0.9;
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            margin: 15px 0 30px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            -webkit-tap-highlight-color: transparent; /* Убирает подсветку при касании на мобильных */
+        }
+        
+        .back-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Контейнер для всех страниц */
+        .pages-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        
+        .pages-header {
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            text-align: center;
+        }
+        
+        .pages-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .pages-subtitle {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        /* Область с страницами */
+        .pages-content {
+            padding: 0;
+        }
+        
+        .page-item {
+            padding: 30px;
+            border-bottom: 1px solid #f1f1f1;
+            text-align: center;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        .page-item:last-child {
+            border-bottom: none;
+        }
+        
+        .page-number {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .page-image {
+            max-width: 100%;
+            width: auto;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            -webkit-user-select: none; /* Предотвращает выделение изображения на iOS */
+            -webkit-touch-callout: none; /* Отключает меню на долгое нажатие на iOS */
+        }
+        
+        .page-image.zoomed {
+            transform: scale(1.8);
+            z-index: 10;
+            position: relative;
+            max-width: 90vw; /* Ограничиваем размер на мобильных */
+        }
+        
+        /* Индикатор прогресса */
+        .progress-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(52, 152, 219, 0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            backdrop-filter: blur(5px); /* Размытие фона для лучшей читаемости */
+            -webkit-backdrop-filter: blur(5px);
+        }
+        
+        /* Кнопки управления масштабом */
+        .zoom-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .zoom-btn {
+            background: rgba(52, 152, 219, 0.9);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+        
+        .zoom-btn:hover {
+            background: #2980b9;
+            transform: scale(1.1);
+        }
+        
+        /* Оверлей для увеличенного изображения */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        .overlay.active {
+            display: flex;
+        }
+        
+        .overlay-img {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        .overlay-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .overlay-page-info {
+            color: white;
+            margin-top: 15px;
+            font-size: 18px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .page-item {
+                padding: 20px 15px;
+            }
+            
+            .page-image {
+                width: 100%;
+                height: auto;
+            }
+            
+            .zoom-controls {
+                bottom: 10px;
+                left: 10px;
+                flex-direction: column;
+            }
+            
+            .progress-indicator {
+                bottom: 10px;
+                right: 10px;
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+            
+            .zoom-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+            
+            .pages-title {
+                font-size: 20px;
+            }
+            
+            .logo {
+                font-size: 24px;
+            }
+            
+            .back-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 22px;
+            }
+            
+            .pages-title {
+                font-size: 18px;
+            }
+            
+            .page-item {
+                padding: 15px 10px;
+            }
+            
+            .back-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+            
+            .page-number {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .page-item {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        /* Стиль для загрузки */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        /* Улучшенное отображение на мобильных устройствах */
+        @media (hover: none) and (pointer: coarse) {
+            .zoom-btn:hover {
+                transform: none;
+            }
+            
+            .back-btn:hover {
+                transform: none;
+            }
+            
+            /* Улучшаем обработку касаний */
+            .page-image {
+                cursor: pointer;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo" onclick="window.location.href='index.html'">Электро<span>Техника</span></div>
+            <div class="subject">Раздел 3:Трансформаторы Машины переменного тока</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Кнопка "Назад к разделам" -->
+        <a href="prosl-razdely.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Назад к разделам
+        </a>
+        
+        <div class="pages-container">
+            <div class="pages-header">
+                <h1 class="pages-title">Конспект: Машины переменного тока</h1>
+                <p class="pages-subtitle">Листайте вниз для просмотра всех страниц</p>
+            </div>
+            
+            <div class="pages-content" id="pagesContent">
+                <!-- Страницы будут добавлены через JavaScript -->
+                <div class="loading" id="loadingText">Загрузка конспекта...</div>
+            </div>
+        </div>
+        
+        <!-- Оверлей для увеличенного просмотра -->
+        <div class="overlay" id="imageOverlay">
+            <button class="overlay-close" id="closeOverlay">
+                <i class="fas fa-times"></i>
+            </button>
+            <img class="overlay-img" id="overlayImage" src="" alt="">
+            <div class="overlay-page-info" id="overlayPageInfo">Страница 1 из 18</div>
+        </div>
+        
+        <!-- Индикатор прогресса -->
+        <div class="progress-indicator" id="progressIndicator">
+            Страница 1 из 18
+        </div>
+        
+        <!-- Кнопки управления масштабом -->
+        <div class="zoom-controls">
+            <button class="zoom-btn" id="zoomIn" title="Увеличить">
+                <i class="fas fa-search-plus"></i>
+            </button>
+            <button class="zoom-btn" id="zoomOut" title="Уменьшить">
+                <i class="fas fa-search-minus"></i>
+            </button>
+            <button class="zoom-btn" id="resetZoom" title="Сбросить масштаб">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Упрощенная логика - всего 17 страниц, пропускаем только страницу 8
+            const totalPages = 17;
+            const pagesToSkip = [8];
+            let currentZoom = 1;
+            
+            const pagesContent = document.getElementById('pagesContent');
+            const progressIndicator = document.getElementById('progressIndicator');
+            const zoomInBtn = document.getElementById('zoomIn');
+            const zoomOutBtn = document.getElementById('zoomOut');
+            const resetZoomBtn = document.getElementById('resetZoom');
+            const loadingText = document.getElementById('loadingText');
+            const imageOverlay = document.getElementById('imageOverlay');
+            const overlayImage = document.getElementById('overlayImage');
+            const overlayPageInfo = document.getElementById('overlayPageInfo');
+            const closeOverlayBtn = document.getElementById('closeOverlay');
+            
+            // Упрощенная функция загрузки страниц
+            function loadAllPages() {
+                pagesContent.innerHTML = '';
+                let displayPageNumber = 1;
+                
+                // Создаем страницы от 1 до 18, но пропускаем страницу 8
+                for (let i = 1; i <= 18; i++) {
+                    if (pagesToSkip.includes(i)) {
+                        continue;
+                    }
+                    
+                    const pageItem = document.createElement('div');
+                    pageItem.className = 'page-item';
+                    pageItem.id = `page-${displayPageNumber}`;
+                    
+                    const pageNumber = document.createElement('div');
+                    pageNumber.className = 'page-number';
+                    pageNumber.textContent = `Страница ${displayPageNumber}`;
+                    
+                    const img = document.createElement('img');
+                    img.className = 'page-image';
+                    
+                    // Форматируем номер страницы для имени файла
+                    const pageNumStr = i.toString().padStart(2, '0');
+                    // ИЗМЕНЕНО НАЗВАНИЕ ФАЙЛА: ТРАНСФОРМАТОРЫ_01.jpg - ТРАНСФОРМАТОРЫ_18.jpg
+                    img.src = `img2/ТРАНСФОРМАТОРЫ_${pageNumStr}.jpg`;
+                    img.alt = `Страница ${displayPageNumber} - Трансформаторы`;
+                    img.loading = "lazy";
+                    img.dataset.page = displayPageNumber;
+                    
+                    // Обработчик ошибок загрузки изображения
+                    img.onerror = function() {
+                        console.error(`Ошибка загрузки страницы ${displayPageNumber}`);
+                        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000"><rect width="800" height="1000" fill="%23f8f9fa"/><text x="400" y="500" text-anchor="middle" font-family="Arial" font-size="24" fill="%23666">Страница ' + displayPageNumber + ' не найдена</text></svg>';
+                    };
+                    
+                    // Обработчик клика для открытия в оверлее
+                    img.addEventListener('click', function() {
+                        openOverlay(this.src, parseInt(this.dataset.page));
+                    });
+                    
+                    pageItem.appendChild(pageNumber);
+                    pageItem.appendChild(img);
+                    pagesContent.appendChild(pageItem);
+                    
+                    displayPageNumber++;
+                }
+                
+                loadingText.style.display = 'none';
+            }
+            
+            // Функция открытия оверлея для просмотра изображения
+            function openOverlay(imageSrc, pageNumber) {
+                overlayImage.src = imageSrc;
+                overlayPageInfo.textContent = `Страница ${pageNumber} из ${totalPages}`;
+                imageOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // Функция закрытия оверлея
+            function closeOverlay() {
+                imageOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
+            // Глобальное управление масштабом всех изображений
+            function applyZoomToAllImages(zoomLevel) {
+                const allImages = document.querySelectorAll('.page-image:not(.overlay-img)');
+                allImages.forEach(img => {
+                    img.style.transform = `scale(${zoomLevel})`;
+                });
+            }
+            
+            // Обновление индикатора прогресса при скролле
+            function updateProgressIndicator() {
+                const pageItems = document.querySelectorAll('.page-item');
+                const scrollPosition = window.scrollY + (window.innerHeight / 2);
+                
+                let currentVisiblePage = 1;
+                
+                for (let i = 0; i < pageItems.length; i++) {
+                    const item = pageItems[i];
+                    const rect = item.getBoundingClientRect();
+                    const itemTop = rect.top + window.scrollY;
+                    const itemBottom = itemTop + rect.height;
+                    
+                    if (scrollPosition >= itemTop && scrollPosition <= itemBottom) {
+                        currentVisiblePage = i + 1;
+                        break;
+                    }
+                }
+                
+                progressIndicator.textContent = `Страница ${currentVisiblePage} из ${totalPages}`;
+            }
+            
+            // Обработчики событий для кнопок масштабирования
+            zoomInBtn.addEventListener('click', function() {
+                if (currentZoom < 2) {
+                    currentZoom += 0.1;
+                    applyZoomToAllImages(currentZoom);
+                }
+            });
+            
+            zoomOutBtn.addEventListener('click', function() {
+                if (currentZoom > 0.5) {
+                    currentZoom -= 0.1;
+                    applyZoomToAllImages(currentZoom);
+                }
+            });
+            
+            resetZoomBtn.addEventListener('click', function() {
+                currentZoom = 1;
+                applyZoomToAllImages(currentZoom);
+            });
+            
+            // Обработчики для оверлея
+            closeOverlayBtn.addEventListener('click', closeOverlay);
+            
+            imageOverlay.addEventListener('click', function(e) {
+                if (e.target === imageOverlay) {
+                    closeOverlay();
+                }
+            });
+            
+            // Горячие клавиши (только для десктопа)
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeOverlay();
+                }
+                
+                // Только если оверлей не открыт
+                if (!imageOverlay.classList.contains('active')) {
+                    if (e.key === '+' || e.key === '=') {
+                        e.preventDefault();
+                        zoomInBtn.click();
+                    } else if (e.key === '-' || e.key === '_') {
+                        e.preventDefault();
+                        zoomOutBtn.click();
+                    } else if (e.key === '0') {
+                        e.preventDefault();
+                        resetZoomBtn.click();
+                    }
+                }
+            });
+            
+            // Отслеживание скролла для обновления индикатора
+            let scrollTimeout;
+            window.addEventListener('scroll', function() {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(updateProgressIndicator, 100);
+            });
+            
+            window.addEventListener('resize', updateProgressIndicator);
+            
+            // Исправляем логотип - ведет на главную
+            document.querySelector('.logo').addEventListener('click', function() {
+                window.location.href = 'index.html';
+            });
+            
+            // Инициализация
+            loadAllPages();
+            updateProgressIndicator();
+            
+            // Плавная прокрутка к верху при загрузке
+            window.scrollTo(0, 0);
+            
+            // Улучшенная обработка касаний для мобильных устройств
+            document.addEventListener('touchstart', function() {}, {passive: true});
+        });
+    </script>
+</body>
+</html>
