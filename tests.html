@@ -147,23 +147,13 @@
         .test-card p {
             color: #666;
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 0;
         }
         
         .test-icon {
             font-size: 36px;
             margin-bottom: 15px;
             color: #3498db;
-        }
-        
-        .test-meta {
-            display: flex;
-            justify-content: space-between;
-            color: #7f8c8d;
-            font-size: 14px;
-            border-top: 1px solid #f1f1f1;
-            padding-top: 15px;
-            margin-top: 15px;
         }
         
         .test-link {
@@ -190,10 +180,6 @@
             color: #666;
             font-size: 18px;
         }
-        
-        .difficulty-easy { border-top-color: #27ae60; }
-        .difficulty-medium { border-top-color: #f39c12; }
-        .difficulty-hard { border-top-color: #e74c3c; }
         
         .back-btn {
             display: inline-block;
@@ -249,42 +235,6 @@
             z-index: 3;
             font-size: 18px;
         }
-        
-        /* Специальный стиль только для второго теста */
-        .active-development {
-            position: relative;
-        }
-        
-        .active-development::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(2px);
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-        }
-        
-        .active-development::before {
-            content: "В активной разработке";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #ffdd59;
-            color: #333;
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-weight: bold;
-            z-index: 3;
-            font-size: 18px;
-        }
     </style>
 </head>
 <body>
@@ -320,24 +270,16 @@
                 </div>
                 <h3>Генераторы постоянного тока</h3>
                 <p>Проверьте свои знания о принципах работы, конструктивных особенностях и применении генераторов постоянного тока.</p>
-                <div class="test-meta">
-                    <span><i class="fas fa-question-circle"></i> 15 вопросов</span>
-                    <span class="difficulty-easy">Легкий уровень</span>
-                </div>
                 <a href="test-generators-dc.html" class="test-link"></a>
             </div>
             
-            <div class="test-card active-development">
+            <div class="test-card">
                 <div class="test-icon">
                     <i class="fas fa-car-battery"></i>
                 </div>
                 <h3>Трансформаторы</h3>
                 <p>Тест по типам трансформаторов, их характеристикам, принципам работы и особенностям эксплуатации.</p>
-                <div class="test-meta">
-                    <span><i class="fas fa-question-circle"></i> 12 вопросов</span>
-                    <span class="difficulty-medium">Средний уровень</span>
-                </div>
-                <a href="#" class="test-link"></a>
+                <a href="test-motors-dc.html" class="test-link"></a>
             </div>
             
             <div class="test-card in-development">
@@ -346,10 +288,6 @@
                 </div>
                 <h3>Электрические цепи</h3>
                 <p>Основные законы электротехники, анализ цепей постоянного тока, методы расчета параметров цепей.</p>
-                <div class="test-meta">
-                    <span><i class="fas fa-question-circle"></i> 20 вопросов</span>
-                    <span class="difficulty-hard">Сложный уровень</span>
-                </div>
                 <a href="#" class="test-link"></a>
             </div>
             
@@ -359,10 +297,6 @@
                 </div>
                 <h3>Электрические измерения</h3>
                 <p>Тест по методам и приборам для измерения электрических величин, погрешностям и классам точности.</p>
-                <div class="test-meta">
-                    <span><i class="fas fa-question-circle"></i> 10 вопросов</span>
-                    <span class="difficulty-medium">Средний уровень</span>
-                </div>
                 <a href="#" class="test-link"></a>
             </div>
             
@@ -372,10 +306,6 @@
                 </div>
                 <h3>Источники питания</h3>
                 <p>Вопросы по различным типам источников питания, их характеристикам и областям применения.</p>
-                <div class="test-meta">
-                    <span><i class="fas fa-question-circle"></i> 18 вопросов</span>
-                    <span class="difficulty-hard">Сложный уровень</span>
-                </div>
                 <a href="#" class="test-link"></a>
             </div>
             
@@ -385,10 +315,6 @@
                 </div>
                 <h3>Магнитные цепи</h3>
                 <p>Тест по основам магнитных цепей, электромагнетизму, ферромагнитным материалам и их свойствам.</p>
-                <div class="test-meta">
-                    <span><i class="fas fa-question-circle"></i> 14 вопросов</span>
-                    <span class="difficulty-medium">Средний уровень</span>
-                </div>
                 <a href="#" class="test-link"></a>
             </div>
         </div>
@@ -401,7 +327,7 @@
         });
 
         // Блокируем клик по карточкам "В разработке"
-        document.querySelectorAll('.in-development .test-link, .active-development .test-link').forEach(link => {
+        document.querySelectorAll('.in-development .test-link').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 alert('Этот тест находится в разработке и будет доступен в ближайшее время');
