@@ -235,6 +235,79 @@
             z-index: 3;
             font-size: 18px;
         }
+
+        /* Медиа-запросы для мобильной версии */
+        @media (max-width: 900px) {
+            nav {
+                gap: 8px;
+            }
+            
+            .nav-btn {
+                padding: 10px 15px;
+                font-size: 14px;
+                min-width: 90px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 5px;
+                margin-top: 15px;
+            }
+            
+            nav.active {
+                display: flex;
+            }
+            
+            .nav-btn {
+                width: 100%;
+                max-width: none;
+                min-width: auto;
+                margin-bottom: 5px;
+                padding: 12px;
+                border-radius: 5px;
+            }
+            
+            .header-content {
+                padding-bottom: 15px;
+            }
+            
+            .tests-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 26px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+            
+            .test-card {
+                padding: 20px;
+            }
+            
+            .logo {
+                font-size: 28px;
+                padding-right: 40px;
+            }
+            
+            .subject {
+                font-size: 16px;
+                padding-right: 40px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -264,6 +337,7 @@
         <p class="section-description">Проверьте свои знания с помощью наших интерактивных тестов</p>
         
         <div class="tests-container">
+            <!-- Тест 1: Генераторы постоянного тока -->
             <div class="test-card">
                 <div class="test-icon">
                     <i class="fas fa-bolt"></i>
@@ -273,15 +347,27 @@
                 <a href="test-generators-dc.html" class="test-link"></a>
             </div>
             
+            <!-- Тест 2: Электродвигатели постоянного тока (задачи) -->
+            <div class="test-card">
+                <div class="test-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3>Электродвигатели постоянного тока - Задачи</h3>
+                <p>Решение практических задач по расчету параметров электродвигателей: моментов, токов, скоростей и КПД.</p>
+                <a href="test-motors-dc.html" class="test-link"></a>
+            </div>
+            
+            <!-- Тест 3: Электродвигатели постоянного тока -->
             <div class="test-card">
                 <div class="test-icon">
                     <i class="fas fa-car-battery"></i>
                 </div>
-                <h3>Трансформаторы</h3>
-                <p>Тест по типам трансформаторов, их характеристикам, принципам работы и особенностям эксплуатации.</p>
-                <a href="test-motors-dc.html" class="test-link"></a>
+                <h3>Электродвигатели постоянного тока</h3>
+                <p>Теоретические вопросы по устройству, принципам работы и характеристикам электродвигателей постоянного тока.</p>
+                <a href="test-motors-theory.html" class="test-link"></a>
             </div>
             
+            <!-- Остальные тесты в разработке -->
             <div class="test-card in-development">
                 <div class="test-icon">
                     <i class="fas fa-plug"></i>
@@ -333,6 +419,25 @@
                 alert('Этот тест находится в разработке и будет доступен в ближайшее время');
             });
         });
+
+        // Обработчик для логотипа (возврат на главную)
+        document.getElementById('mainLogo').addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+
+        // Закрытие меню при клике вне его области
+        document.addEventListener('click', function(event) {
+            const mainNav = document.getElementById('mainNav');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            
+            if (window.innerWidth <= 768 && 
+                !event.target.closest('#mainNav') && 
+                !event.target.closest('#mobileMenuBtn') &&
+                mainNav.classList.contains('active')) {
+                mainNav.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
+
